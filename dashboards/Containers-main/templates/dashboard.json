@@ -1,0 +1,3202 @@
+{
+  "title": "[DEV] demo Containers main",
+  "description": "## demo Container dashboard \n\nDashboard with information about containers separated by clusters INT, TESTING and STAGING.\n\n",
+  "widgets": [
+    {
+      "id": 5857411854700416,
+      "layout": { "x": 2, "y": 47, "width": 18, "height": 60 },
+      "definition": {
+        "type": "note",
+        "content": "ECS",
+        "background_color": "blue",
+        "font_size": "56",
+        "text_align": "center",
+        "vertical_align": "bottom",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": true
+      }
+    },
+    {
+      "id": 1440382053257366,
+      "layout": { "x": 204, "y": 10, "width": 77, "height": 9 },
+      "definition": {
+        "type": "note",
+        "content": "INT",
+        "background_color": "gray",
+        "font_size": "36",
+        "text_align": "center",
+        "vertical_align": "center",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": true
+      }
+    },
+    {
+      "id": 3179492367494046,
+      "layout": { "x": 119, "y": 9.75, "width": 74, "height": 9 },
+      "definition": {
+        "type": "note",
+        "content": "TESTING",
+        "background_color": "gray",
+        "font_size": "36",
+        "text_align": "center",
+        "vertical_align": "center",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": true
+      }
+    },
+    {
+      "id": 7928748777523932,
+      "layout": { "x": 36, "y": 10, "width": 74, "height": 9 },
+      "definition": {
+        "type": "note",
+        "content": "STAGING",
+        "background_color": "gray",
+        "font_size": "36",
+        "text_align": "center",
+        "vertical_align": "center",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": true
+      }
+    },
+    {
+      "id": 4980705762791806,
+      "layout": { "x": 21, "y": 34, "width": 12, "height": 12 },
+      "definition": {
+        "type": "image",
+        "url": "https://blog.appliscale.io/wp-content/uploads/2020/06/aws-ecs.png",
+        "sizing": "cover",
+        "has_background": true,
+        "has_border": true,
+        "vertical_align": "center",
+        "horizontal_align": "center"
+      }
+    },
+    {
+      "id": 5013273177936116,
+      "layout": { "x": 204, "y": 21, "width": 17, "height": 11 },
+      "definition": {
+        "title": "ECS Active Services",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1 / query2" }],
+            "conditional_formats": [
+              { "comparator": ">=", "palette": "white_on_green", "value": 1 },
+              {
+                "comparator": "<",
+                "palette": "black_on_light_green",
+                "value": 1
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "sum:aws.ecs.service.running{clustername:demo-int-dev}",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "avg"
+              },
+              {
+                "query": "avg:aws.ecs.service.running{clustername:demo-int-dev}",
+                "data_source": "metrics",
+                "name": "query2",
+                "aggregator": "avg"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "custom_unit": " ",
+        "precision": 0
+      }
+    },
+    {
+      "id": 8170964620063722,
+      "layout": { "x": 224, "y": 21, "width": 17, "height": 11 },
+      "definition": {
+        "title": "ECS Pending Services",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "conditional_formats": [
+              { "comparator": ">=", "palette": "white_on_green", "value": 1 },
+              {
+                "comparator": "<",
+                "palette": "black_on_light_green",
+                "value": 1
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "avg:aws.ecs.service.pending{clustername:demo-int-dev}",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "avg"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "custom_unit": " ",
+        "precision": 0
+      }
+    },
+    {
+      "id": 1421472819845584,
+      "layout": { "x": 244, "y": 21, "width": 17, "height": 11 },
+      "definition": {
+        "title": "ECS Running Tasks",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "conditional_formats": [
+              { "comparator": ">=", "palette": "white_on_green", "value": 1 },
+              {
+                "comparator": "<",
+                "palette": "black_on_light_green",
+                "value": 1
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "sum:ecs.containerinsights.RunningTaskCount{clustername:demo-int-dev}",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "avg"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "custom_unit": " ",
+        "precision": 0
+      }
+    },
+    {
+      "id": 5291905238670262,
+      "layout": { "x": 264, "y": 21, "width": 17, "height": 11 },
+      "definition": {
+        "title": "ECS Pending Tasks",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "conditional_formats": [
+              { "comparator": ">=", "palette": "white_on_green", "value": 1 },
+              {
+                "comparator": "<",
+                "palette": "black_on_light_green",
+                "value": 1
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "sum:ecs.containerinsights.PendingTaskCount{clustername:demo-int-dev}",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "avg"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "custom_unit": " ",
+        "precision": 0
+      }
+    },
+    {
+      "id": 3876713784624852,
+      "layout": { "x": 204, "y": 47, "width": 77, "height": 19 },
+      "definition": {
+        "title": "ECS Cluster CPU Utilization [demo-int-dev]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:aws.ecs.cpuutilization{clustername:demo-int-dev}",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "thick"
+            },
+            "display_type": "line"
+          }
+        ]
+      }
+    },
+    {
+      "id": 4230660784627054,
+      "layout": { "x": 204, "y": 67, "width": 77, "height": 19 },
+      "definition": {
+        "title": "ECS Cluster Memory Utilization [demo-int-dev]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:aws.ecs.memory_utilization{clustername:demo-int-dev}",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "thick"
+            },
+            "display_type": "line"
+          }
+        ]
+      }
+    },
+    {
+      "id": 5048663073899796,
+      "layout": { "x": 204, "y": 87, "width": 77, "height": 20 },
+      "definition": {
+        "title": "ECS Service CPU Utilization [demo-int-dev]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "horizontal",
+        "legend_columns": ["avg"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [
+              { "formula": "query1" },
+              { "formula": "query2" },
+              { "formula": "query3" }
+            ],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:aws.ecs.service.cpuutilization{clustername:demo-int-dev,servicename:rails}",
+                "data_source": "metrics",
+                "name": "query1"
+              },
+              {
+                "query": "avg:aws.ecs.service.cpuutilization{clustername:demo-int-dev,servicename:rpush}",
+                "data_source": "metrics",
+                "name": "query2"
+              },
+              {
+                "query": "avg:aws.ecs.service.cpuutilization{clustername:demo-int-dev,servicename:sidekiq}",
+                "data_source": "metrics",
+                "name": "query3"
+              }
+            ],
+            "style": {
+              "palette": "blue",
+              "line_type": "solid",
+              "line_width": "thick"
+            },
+            "display_type": "line"
+          }
+        ]
+      }
+    },
+    {
+      "id": 7617160428815626,
+      "layout": { "x": 21, "y": 47, "width": 12, "height": 39 },
+      "definition": {
+        "type": "note",
+        "content": "ECS CLUSTER",
+        "background_color": "white",
+        "font_size": "24",
+        "text_align": "center",
+        "vertical_align": "center",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": true
+      }
+    },
+    {
+      "id": 6302831871428314,
+      "layout": { "x": 21, "y": 87, "width": 12, "height": 40 },
+      "definition": {
+        "type": "note",
+        "content": "ECS SERVICE",
+        "background_color": "white",
+        "font_size": "24",
+        "text_align": "center",
+        "vertical_align": "top",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": true
+      }
+    },
+    {
+      "id": 4275085951480916,
+      "layout": { "x": 138, "y": 21, "width": 17, "height": 11 },
+      "definition": {
+        "title": "ECS Pending Services",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "conditional_formats": [
+              { "comparator": ">=", "palette": "white_on_green", "value": 1 },
+              {
+                "comparator": "<",
+                "palette": "black_on_light_green",
+                "value": 1
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "avg:aws.ecs.service.pending{clustername:demo-testing-dev}",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "avg"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "custom_unit": " ",
+        "precision": 0
+      }
+    },
+    {
+      "id": 7617452695046836,
+      "layout": { "x": 157, "y": 21, "width": 17, "height": 11 },
+      "definition": {
+        "title": "ECS Running Tasks",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "conditional_formats": [
+              { "comparator": ">=", "palette": "white_on_green", "value": 1 },
+              {
+                "comparator": "<",
+                "palette": "black_on_light_green",
+                "value": 1
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "sum:ecs.containerinsights.RunningTaskCount{clustername:demo-int-dev}",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "avg"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "custom_unit": " ",
+        "precision": 0
+      }
+    },
+    {
+      "id": 6218421106487218,
+      "layout": { "x": 176, "y": 21, "width": 17, "height": 11 },
+      "definition": {
+        "title": "ECS Pending Tasks",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "conditional_formats": [
+              { "comparator": ">=", "palette": "white_on_green", "value": 1 },
+              {
+                "comparator": "<",
+                "palette": "black_on_light_green",
+                "value": 1
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "sum:ecs.containerinsights.PendingTaskCount{clustername:demo-int-dev}",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "avg"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "custom_unit": " ",
+        "precision": 0
+      }
+    },
+    {
+      "id": 6358297408676622,
+      "layout": { "x": 119, "y": 47, "width": 74, "height": 19 },
+      "definition": {
+        "title": "ECS Cluster CPU Utilization [demo-testing-dev]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:aws.ecs.cpuutilization{clustername:demo-testing-dev}",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "thick"
+            },
+            "display_type": "line"
+          }
+        ]
+      }
+    },
+    {
+      "id": 925906360090656,
+      "layout": { "x": 119, "y": 67, "width": 74, "height": 19 },
+      "definition": {
+        "title": "ECS Cluster Memory Utilization [demo-testing-dev]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:aws.ecs.memory_utilization{clustername:demo-testing-dev}",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "thick"
+            },
+            "display_type": "line"
+          }
+        ]
+      }
+    },
+    {
+      "id": 8847522937343724,
+      "layout": { "x": 119, "y": 87, "width": 74, "height": 20 },
+      "definition": {
+        "title": "ECS Service CPU Utilization [demo-testing-dev]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "horizontal",
+        "legend_columns": ["avg"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [
+              { "formula": "query1" },
+              { "formula": "query2" },
+              { "formula": "query3" }
+            ],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:aws.ecs.service.cpuutilization{clustername:demo-testing-dev,servicename:rails}",
+                "data_source": "metrics",
+                "name": "query1"
+              },
+              {
+                "query": "avg:aws.ecs.service.cpuutilization{clustername:demo-testing-dev,servicename:rpush}",
+                "data_source": "metrics",
+                "name": "query2"
+              },
+              {
+                "query": "avg:aws.ecs.service.cpuutilization{clustername:demo-testing-dev,servicename:sidekiq}",
+                "data_source": "metrics",
+                "name": "query3"
+              }
+            ],
+            "style": {
+              "palette": "blue",
+              "line_type": "solid",
+              "line_width": "thick"
+            },
+            "display_type": "line"
+          }
+        ]
+      }
+    },
+    {
+      "id": 3200039111651308,
+      "layout": { "x": 55, "y": 21, "width": 17, "height": 11 },
+      "definition": {
+        "title": "ECS Pending Services",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "conditional_formats": [
+              { "comparator": ">=", "palette": "white_on_green", "value": 1 },
+              {
+                "comparator": "<",
+                "palette": "black_on_light_green",
+                "value": 1
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "avg:aws.ecs.service.pending{clustername:demo-staging-dev}",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "avg"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "custom_unit": " ",
+        "precision": 0
+      }
+    },
+    {
+      "id": 1482193721652210,
+      "layout": { "x": 74, "y": 21, "width": 17, "height": 11 },
+      "definition": {
+        "title": "ECS Running Tasks",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "conditional_formats": [
+              { "comparator": ">=", "palette": "white_on_green", "value": 1 },
+              {
+                "comparator": "<",
+                "palette": "black_on_light_green",
+                "value": 1
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "sum:ecs.containerinsights.RunningTaskCount{clustername:demo-staging-dev}",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "avg"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "custom_unit": " ",
+        "precision": 0
+      }
+    },
+    {
+      "id": 2218674031509502,
+      "layout": { "x": 93, "y": 21, "width": 17, "height": 11 },
+      "definition": {
+        "title": "ECS Pending Tasks",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "conditional_formats": [
+              { "comparator": ">=", "palette": "white_on_green", "value": 1 },
+              {
+                "comparator": "<",
+                "palette": "black_on_light_green",
+                "value": 1
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "sum:ecs.containerinsights.PendingTaskCount{clustername:demo-int-dev}",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "avg"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "custom_unit": " ",
+        "precision": 0
+      }
+    },
+    {
+      "id": 4600329191810366,
+      "layout": { "x": 36, "y": 47, "width": 74, "height": 19 },
+      "definition": {
+        "title": "ECS Cluster CPU Utilization [demo-staging-dev]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:aws.ecs.cpuutilization{clustername:demo-staging-dev}",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "thick"
+            },
+            "display_type": "line"
+          }
+        ]
+      }
+    },
+    {
+      "id": 2537463127237534,
+      "layout": { "x": 36, "y": 67, "width": 74, "height": 19 },
+      "definition": {
+        "title": "ECS Cluster Memory Utilization [demo-staging-dev]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:aws.ecs.memory_utilization{clustername:demo-staging-dev}",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "thick"
+            },
+            "display_type": "line"
+          }
+        ]
+      }
+    },
+    {
+      "id": 7445125178859148,
+      "layout": { "x": 36, "y": 87, "width": 74, "height": 20 },
+      "definition": {
+        "title": "ECS Service CPU Utilization [demo-staging-dev]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "horizontal",
+        "legend_columns": ["avg"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [
+              { "formula": "query1" },
+              { "formula": "query2" },
+              { "formula": "query3" }
+            ],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:aws.ecs.service.cpuutilization{clustername:demo-staging-dev,servicename:rails}",
+                "data_source": "metrics",
+                "name": "query1"
+              },
+              {
+                "query": "avg:aws.ecs.service.cpuutilization{clustername:demo-staging-dev,servicename:rpush}",
+                "data_source": "metrics",
+                "name": "query2"
+              },
+              {
+                "query": "avg:aws.ecs.service.cpuutilization{clustername:demo-staging-dev,servicename:sidekiq}",
+                "data_source": "metrics",
+                "name": "query3"
+              }
+            ],
+            "style": {
+              "palette": "blue",
+              "line_type": "solid",
+              "line_width": "thick"
+            },
+            "display_type": "line"
+          }
+        ]
+      }
+    },
+    {
+      "id": 7775687164400582,
+      "layout": { "x": 2, "y": 143, "width": 18, "height": 60 },
+      "definition": {
+        "type": "note",
+        "content": "Application Load Balancer",
+        "background_color": "blue",
+        "font_size": "36",
+        "text_align": "center",
+        "vertical_align": "bottom",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": true
+      }
+    },
+    {
+      "id": 7948565312282238,
+      "layout": { "x": 21, "y": 129, "width": 12, "height": 12 },
+      "definition": {
+        "type": "image",
+        "url": "https://s3-us-west-2.amazonaws.com/com-netuitive-app-usw2-public/wp-content/uploads/2017/07/ElasticLoadBalancer.png",
+        "sizing": "cover",
+        "has_background": true,
+        "has_border": true,
+        "vertical_align": "center",
+        "horizontal_align": "center"
+      }
+    },
+    {
+      "id": 85802798295786,
+      "layout": { "x": 204, "y": 129, "width": 14, "height": 11 },
+      "definition": {
+        "title": "Healthy hosts counts",
+        "title_size": "13",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "conditional_formats": [
+              { "comparator": ">=", "palette": "white_on_green", "value": 1 },
+              {
+                "comparator": "<",
+                "palette": "black_on_light_green",
+                "value": 1
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "avg:aws.applicationelb.healthy_host_count{name:demo-int-dev}",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "avg"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "custom_unit": " ",
+        "precision": 0
+      }
+    },
+    {
+      "id": 5605128003486924,
+      "layout": { "x": 219, "y": 129, "width": 15, "height": 11 },
+      "definition": {
+        "title": "Unhealthy hosts counts",
+        "title_size": "13",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "conditional_formats": [
+              { "comparator": ">", "palette": "white_on_red", "value": 1 },
+              { "comparator": "<", "palette": "white_on_green", "value": 1 }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "avg:aws.applicationelb.un_healthy_host_count{name:demo-int-dev}",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "avg"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "custom_unit": " ",
+        "precision": 0
+      }
+    },
+    {
+      "id": 5658835259768346,
+      "layout": { "x": 235, "y": 129, "width": 14, "height": 11 },
+      "definition": {
+        "title": "Request counts per second",
+        "title_size": "13",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "conditional_formats": [
+              { "comparator": ">=", "palette": "white_on_green", "value": 1 },
+              {
+                "comparator": "<",
+                "palette": "black_on_light_green",
+                "value": 1
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "sum:aws.applicationelb.request_count{name:demo-int-dev}.as_rate()",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "avg"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "custom_unit": "",
+        "precision": 1
+      }
+    },
+    {
+      "id": 3772126097914362,
+      "layout": { "x": 250, "y": 129, "width": 14, "height": 11 },
+      "definition": {
+        "title": "Request time (avg)",
+        "title_size": "13",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "conditional_formats": [
+              { "comparator": ">=", "palette": "white_on_green", "value": 1 },
+              {
+                "comparator": "<",
+                "palette": "black_on_light_green",
+                "value": 1
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "sum:aws.applicationelb.target_response_time.average{name:demo-int-dev}",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "avg"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "custom_unit": "",
+        "precision": 2
+      }
+    },
+    {
+      "id": 156190411977910,
+      "layout": { "x": 21, "y": 143, "width": 12, "height": 60 },
+      "definition": {
+        "type": "note",
+        "content": "HTTP Responses",
+        "background_color": "white",
+        "font_size": "24",
+        "text_align": "center",
+        "vertical_align": "center",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": true
+      }
+    },
+    {
+      "id": 7576054385416830,
+      "layout": { "x": 204, "y": 143, "width": 77, "height": 19 },
+      "definition": {
+        "title": "HTTP 4XX 5XX  ALB Responses [demo-int-dev]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }, { "formula": "query2" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "sum:aws.applicationelb.httpcode_elb_4xx{name:demo-int-dev} by {host}.as_count()",
+                "data_source": "metrics",
+                "name": "query1"
+              },
+              {
+                "query": "sum:aws.applicationelb.httpcode_elb_5xx{name:demo-int-dev} by {host}.as_count()",
+                "data_source": "metrics",
+                "name": "query2"
+              }
+            ],
+            "style": {
+              "palette": "red",
+              "line_type": "solid",
+              "line_width": "thick"
+            },
+            "display_type": "bars"
+          }
+        ]
+      }
+    },
+    {
+      "id": 7322669864386300,
+      "layout": { "x": 204, "y": 209, "width": 77, "height": 19 },
+      "definition": {
+        "title": "Processed Bytes [demo-int-dev]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "sum:aws.applicationelb.processed_bytes{name:demo-int-dev} by {host}.as_count()",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": { "palette": "green" },
+            "display_type": "area"
+          }
+        ]
+      }
+    },
+    {
+      "id": 8586273613555436,
+      "layout": { "x": 21, "y": 230, "width": 12, "height": 40 },
+      "definition": {
+        "type": "note",
+        "content": "Connections and Latencies",
+        "background_color": "white",
+        "font_size": "24",
+        "text_align": "center",
+        "vertical_align": "center",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": true
+      }
+    },
+    {
+      "id": 1340253226217302,
+      "layout": { "x": 204, "y": 230, "width": 77, "height": 19 },
+      "definition": {
+        "title": "Active and New Connections [demo-int-dev]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "sum:aws.applicationelb.active_connection_count{name:demo-int-dev} by {host}.as_count()",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": {
+              "palette": "red",
+              "line_type": "solid",
+              "line_width": "thick"
+            },
+            "display_type": "line"
+          },
+          {
+            "formulas": [{ "formula": "query0" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "sum:aws.applicationelb.new_connection_count{name:demo-int-dev} by {host}.as_count()",
+                "data_source": "metrics",
+                "name": "query0"
+              }
+            ],
+            "style": {
+              "palette": "green",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ]
+      }
+    },
+    {
+      "id": 1598539236410442,
+      "layout": { "x": 204, "y": 251, "width": 77, "height": 19 },
+      "definition": {
+        "title": "Response Time [demo-int-dev]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [
+              { "formula": "query1" },
+              { "formula": "query1 * 1000" }
+            ],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:aws.applicationelb.target_response_time.average{name:demo-int-dev}",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": {
+              "palette": "orange",
+              "line_type": "solid",
+              "line_width": "thick"
+            },
+            "display_type": "area"
+          }
+        ]
+      }
+    },
+    {
+      "id": 3901910620119402,
+      "layout": { "x": 119, "y": 129, "width": 14, "height": 11 },
+      "definition": {
+        "title": "Healthy hosts counts",
+        "title_size": "13",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "conditional_formats": [
+              { "comparator": ">=", "palette": "white_on_green", "value": 1 },
+              {
+                "comparator": "<",
+                "palette": "black_on_light_green",
+                "value": 1
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "avg:aws.applicationelb.healthy_host_count{name:demo-testing-dev}",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "avg"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "custom_unit": " ",
+        "precision": 0
+      }
+    },
+    {
+      "id": 288002726237302,
+      "layout": { "x": 134, "y": 129, "width": 14, "height": 11 },
+      "definition": {
+        "title": "Unhealthy hosts counts",
+        "title_size": "13",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "conditional_formats": [
+              { "comparator": ">", "palette": "white_on_red", "value": 1 },
+              { "comparator": "<", "palette": "white_on_green", "value": 1 }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "avg:aws.applicationelb.un_healthy_host_count{name:demo-testing-dev}",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "avg"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "custom_unit": " ",
+        "precision": 0
+      }
+    },
+    {
+      "id": 5936617088660496,
+      "layout": { "x": 149, "y": 129, "width": 14, "height": 11 },
+      "definition": {
+        "title": "Request counts per second",
+        "title_size": "13",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "conditional_formats": [
+              { "comparator": ">=", "palette": "white_on_green", "value": 1 },
+              {
+                "comparator": "<",
+                "palette": "black_on_light_green",
+                "value": 1
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "sum:aws.applicationelb.request_count{name:demo-testing-dev}.as_rate()",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "avg"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "precision": 1
+      }
+    },
+    {
+      "id": 4268835348830516,
+      "layout": { "x": 164, "y": 129, "width": 14, "height": 11 },
+      "definition": {
+        "title": "Request time (avg)",
+        "title_size": "13",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "conditional_formats": [
+              { "comparator": ">=", "palette": "white_on_green", "value": 1 },
+              {
+                "comparator": "<",
+                "palette": "black_on_light_green",
+                "value": 1
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "sum:aws.applicationelb.target_response_time.average{name:demo-testing-dev}",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "avg"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "custom_unit": "",
+        "precision": 2
+      }
+    },
+    {
+      "id": 1591929384677488,
+      "layout": { "x": 118, "y": 143, "width": 74, "height": 19 },
+      "definition": {
+        "title": "HTTP 4XX 5XX ALB Responses  [demo-testing-dev]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }, { "formula": "query2" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "sum:aws.applicationelb.httpcode_elb_4xx{name:demo-testing-dev} by {host}.as_count()",
+                "data_source": "metrics",
+                "name": "query1"
+              },
+              {
+                "query": "sum:aws.applicationelb.httpcode_elb_5xx{name:demo-testing-dev} by {host}.as_count()",
+                "data_source": "metrics",
+                "name": "query2"
+              }
+            ],
+            "style": {
+              "palette": "red",
+              "line_type": "solid",
+              "line_width": "thick"
+            },
+            "display_type": "bars"
+          }
+        ]
+      }
+    },
+    {
+      "id": 6940384503814316,
+      "layout": { "x": 118, "y": 209, "width": 74, "height": 19 },
+      "definition": {
+        "title": "Processed Bytes  [demo-testing-dev]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "sum:aws.applicationelb.processed_bytes{name:demo-testing-dev} by {host}.as_count()",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": { "palette": "green" },
+            "display_type": "area"
+          }
+        ]
+      }
+    },
+    {
+      "id": 7905852821871240,
+      "layout": { "x": 118, "y": 230, "width": 74, "height": 19 },
+      "definition": {
+        "title": "Active and New Connections  [demo-testing-dev]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "sum:aws.applicationelb.active_connection_count{name:demo-testing-dev} by {host}.as_count()",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": {
+              "palette": "red",
+              "line_type": "solid",
+              "line_width": "thick"
+            },
+            "display_type": "line"
+          },
+          {
+            "formulas": [{ "formula": "query0" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "sum:aws.applicationelb.new_connection_count{name:demo-testing-dev} by {host}.as_count()",
+                "data_source": "metrics",
+                "name": "query0"
+              }
+            ],
+            "style": {
+              "palette": "green",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ]
+      }
+    },
+    {
+      "id": 2864303509702796,
+      "layout": { "x": 118, "y": 251, "width": 74, "height": 19 },
+      "definition": {
+        "title": "Response Time  [demo-testing-dev]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [
+              { "formula": "query1" },
+              { "formula": "query1 * 1000" }
+            ],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:aws.applicationelb.target_response_time.average{name:demo-testing-dev}",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": {
+              "palette": "orange",
+              "line_type": "solid",
+              "line_width": "thick"
+            },
+            "display_type": "area"
+          }
+        ]
+      }
+    },
+    {
+      "id": 2293040397756058,
+      "layout": { "x": 36, "y": 129, "width": 15, "height": 11 },
+      "definition": {
+        "title": "Healthy hosts counts",
+        "title_size": "13",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "conditional_formats": [
+              { "comparator": ">=", "palette": "white_on_green", "value": 1 },
+              {
+                "comparator": "<",
+                "palette": "black_on_light_green",
+                "value": 1
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "avg:aws.applicationelb.healthy_host_count{name:demo-staging-dev}",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "avg"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "custom_unit": " ",
+        "precision": 0
+      }
+    },
+    {
+      "id": 7734307397694434,
+      "layout": { "x": 53, "y": 129, "width": 14, "height": 11 },
+      "definition": {
+        "title": "Unhealthy hosts counts",
+        "title_size": "13",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "conditional_formats": [
+              { "comparator": ">", "palette": "white_on_red", "value": 1 },
+              { "comparator": "<", "palette": "white_on_green", "value": 1 }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "avg:aws.applicationelb.un_healthy_host_count{name:demo-staging-dev}",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "avg"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "custom_unit": " ",
+        "precision": 0
+      }
+    },
+    {
+      "id": 6502401008587962,
+      "layout": { "x": 68, "y": 129, "width": 14, "height": 11 },
+      "definition": {
+        "title": "Request counts per second",
+        "title_size": "13",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "conditional_formats": [
+              { "comparator": ">=", "palette": "white_on_green", "value": 1 },
+              {
+                "comparator": "<",
+                "palette": "black_on_light_green",
+                "value": 1
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "sum:aws.applicationelb.request_count{name:demo-staging-dev}.as_rate()",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "avg"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "precision": 1
+      }
+    },
+    {
+      "id": 2323129244635960,
+      "layout": { "x": 83, "y": 129, "width": 13, "height": 11 },
+      "definition": {
+        "title": "Request time (avg)",
+        "title_size": "13",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "conditional_formats": [
+              { "comparator": ">=", "palette": "white_on_green", "value": 1 },
+              {
+                "comparator": "<",
+                "palette": "black_on_light_green",
+                "value": 1
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "sum:aws.applicationelb.target_response_time.average{name:demo-staging-dev}",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "avg"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "custom_unit": "",
+        "precision": 2
+      }
+    },
+    {
+      "id": 6624837846684418,
+      "layout": { "x": 36, "y": 143, "width": 74, "height": 19 },
+      "definition": {
+        "title": "HTTP 4XX 5XX ALB Responses  [demo-staging-dev]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }, { "formula": "query2" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "sum:aws.applicationelb.httpcode_elb_4xx{name:demo-staging-dev} by {host}.as_count()",
+                "data_source": "metrics",
+                "name": "query1"
+              },
+              {
+                "query": "sum:aws.applicationelb.httpcode_elb_5xx{name:demo-staging-dev} by {host}.as_count()",
+                "data_source": "metrics",
+                "name": "query2"
+              }
+            ],
+            "style": {
+              "palette": "red",
+              "line_type": "solid",
+              "line_width": "thick"
+            },
+            "display_type": "bars"
+          }
+        ]
+      }
+    },
+    {
+      "id": 3471262342663910,
+      "layout": { "x": 36, "y": 209, "width": 74, "height": 19 },
+      "definition": {
+        "title": "Processed Bytes  [demo-staging-dev]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "sum:aws.applicationelb.processed_bytes{name:demo-staging-dev} by {host}.as_count()",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": { "palette": "green" },
+            "display_type": "area"
+          }
+        ]
+      }
+    },
+    {
+      "id": 6966860520249632,
+      "layout": { "x": 36, "y": 230, "width": 74, "height": 19 },
+      "definition": {
+        "title": "Active and New Connections   [demo-staging-dev]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "sum:aws.applicationelb.active_connection_count{name:demo-staging-dev} by {host}.as_count()",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": {
+              "palette": "red",
+              "line_type": "solid",
+              "line_width": "thick"
+            },
+            "display_type": "line"
+          },
+          {
+            "formulas": [{ "formula": "query0" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "sum:aws.applicationelb.new_connection_count{name:demo-staging-dev} by {host}.as_count()",
+                "data_source": "metrics",
+                "name": "query0"
+              }
+            ],
+            "style": {
+              "palette": "green",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ]
+      }
+    },
+    {
+      "id": 7558804692676332,
+      "layout": { "x": 36, "y": 251, "width": 74, "height": 19 },
+      "definition": {
+        "title": "Response Time  [demo-staging-dev]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [
+              { "formula": "query1" },
+              { "formula": "query1 * 1000" }
+            ],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:aws.applicationelb.target_response_time.average{name:demo-staging-dev}",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": {
+              "palette": "orange",
+              "line_type": "solid",
+              "line_width": "thick"
+            },
+            "display_type": "area"
+          }
+        ]
+      }
+    },
+    {
+      "id": 2108615547556144,
+      "layout": { "x": 2, "y": 288, "width": 18, "height": 60 },
+      "definition": {
+        "type": "note",
+        "content": "",
+        "background_color": "blue",
+        "font_size": "36",
+        "text_align": "center",
+        "vertical_align": "center",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": true
+      }
+    },
+    {
+      "id": 902925359606658,
+      "layout": {
+        "x": 214.66666666666663,
+        "y": 274,
+        "width": 56,
+        "height": 11
+      },
+      "definition": {
+        "title": "Uptime [demo-int-dev]",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "conditional_formats": [
+              { "comparator": ">=", "palette": "white_on_green", "value": 1 },
+              {
+                "comparator": "<",
+                "palette": "black_on_light_green",
+                "value": 1
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "avg:container.uptime{cluster_name:demo-int-dev}",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "last"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "precision": 0
+      }
+    },
+    {
+      "id": 6787805347441812,
+      "layout": { "x": 129, "y": 274, "width": 56, "height": 11 },
+      "definition": {
+        "title": "Uptime  [demo-testing-dev]",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "conditional_formats": [
+              { "comparator": ">=", "palette": "white_on_green", "value": 1 },
+              {
+                "comparator": "<",
+                "palette": "black_on_light_green",
+                "value": 1
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "avg:container.uptime{cluster_name:demo-testing-dev}",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "last"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "precision": 0
+      }
+    },
+    {
+      "id": 3373580422501792,
+      "layout": { "x": 46, "y": 274, "width": 56, "height": 11 },
+      "definition": {
+        "title": "Uptime [demo-staging-dev]",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "conditional_formats": [
+              { "comparator": ">=", "palette": "white_on_green", "value": 1 },
+              {
+                "comparator": "<",
+                "palette": "black_on_light_green",
+                "value": 1
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "avg:container.uptime{cluster_name:demo-staging-dev}",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "last"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "precision": 0
+      }
+    },
+    {
+      "id": 8628723692395756,
+      "layout": { "x": 204, "y": 288, "width": 77, "height": 19 },
+      "definition": {
+        "title": "Memory Usage by Containers [demo-int-dev]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:ecs.fargate.mem.usage{ecs_cluster:demo-int-dev} by {ecs_container_name}",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": {
+              "palette": "orange",
+              "line_type": "solid",
+              "line_width": "thick"
+            },
+            "display_type": "line"
+          }
+        ]
+      }
+    },
+    {
+      "id": 4579457032913958,
+      "layout": { "x": 120, "y": 288, "width": 74, "height": 19 },
+      "definition": {
+        "title": "Memory Usage by Containers  [demo-testing-dev]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:ecs.fargate.mem.usage{ecs_cluster:demo-testing-dev} by {ecs_container_name}",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": {
+              "palette": "orange",
+              "line_type": "solid",
+              "line_width": "thick"
+            },
+            "display_type": "line"
+          }
+        ]
+      }
+    },
+    {
+      "id": 5264988074544434,
+      "layout": { "x": 37, "y": 288, "width": 74, "height": 19 },
+      "definition": {
+        "title": "Memory Usage by Containers [demo-staging-dev]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:ecs.fargate.mem.usage{ecs_cluster:demo-staging-dev} by {container_name}",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": {
+              "palette": "orange",
+              "line_type": "solid",
+              "line_width": "thick"
+            },
+            "display_type": "line"
+          }
+        ]
+      }
+    },
+    {
+      "id": 1164836468174810,
+      "layout": { "x": 21, "y": 288, "width": 12, "height": 19 },
+      "definition": {
+        "type": "note",
+        "content": "Memory",
+        "background_color": "white",
+        "font_size": "24",
+        "text_align": "center",
+        "vertical_align": "center",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": true
+      }
+    },
+    {
+      "id": 804015548206088,
+      "layout": { "x": 204, "y": 309, "width": 77, "height": 20 },
+      "definition": {
+        "title": "Networking Bytes sent and recieved [demo-int-dev]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:ecs.fargate.net.bytes_rcvd{cluster_name:demo-int-dev}",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": {
+              "palette": "warm",
+              "line_type": "solid",
+              "line_width": "thick"
+            },
+            "display_type": "line"
+          },
+          {
+            "formulas": [{ "formula": "query0" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:ecs.fargate.net.bytes_sent{ecs_cluster:demo-int-dev}",
+                "data_source": "metrics",
+                "name": "query0"
+              }
+            ],
+            "style": {
+              "palette": "green",
+              "line_type": "solid",
+              "line_width": "thick"
+            },
+            "display_type": "line"
+          }
+        ]
+      }
+    },
+    {
+      "id": 3185553537458512,
+      "layout": { "x": 204, "y": 330, "width": 77, "height": 20 },
+      "definition": {
+        "title": "IO  Read/Write [demo-int-dev]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:ecs.fargate.io.ops.read{cluster_name:demo-int-dev}",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": {
+              "palette": "warm",
+              "line_type": "solid",
+              "line_width": "thick"
+            },
+            "display_type": "line"
+          },
+          {
+            "formulas": [{ "formula": "query0" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:ecs.fargate.io.ops.write{ecs_cluster:demo-int-dev}",
+                "data_source": "metrics",
+                "name": "query0"
+              }
+            ],
+            "style": {
+              "palette": "green",
+              "line_type": "solid",
+              "line_width": "thick"
+            },
+            "display_type": "line"
+          }
+        ]
+      }
+    },
+    {
+      "id": 5581791682578856,
+      "layout": { "x": 204, "y": 108, "width": 77, "height": 19 },
+      "definition": {
+        "title": "ECS Service Memory Utilization [demo-int-dev]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:aws.ecs.service.memory_utilization{clustername:demo-int-dev} by {servicename}",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "thick"
+            },
+            "display_type": "line"
+          }
+        ]
+      }
+    },
+    {
+      "id": 7083936485598654,
+      "layout": { "x": 119, "y": 108, "width": 74, "height": 19 },
+      "definition": {
+        "title": "ECS Service Memory Utilization [demo-testing-dev]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:aws.ecs.service.memory_utilization{clustername:demo-testing-dev} by {servicename}",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "thick"
+            },
+            "display_type": "line"
+          }
+        ]
+      }
+    },
+    {
+      "id": 385303780904578,
+      "layout": { "x": 36, "y": 108, "width": 74, "height": 19 },
+      "definition": {
+        "title": "ECS Service Memory Utilization [demo-staging-dev]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:aws.ecs.service.memory_utilization{clustername:demo-staging-dev} by {servicename}",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "thick"
+            },
+            "display_type": "line"
+          }
+        ]
+      }
+    },
+    {
+      "id": 521594608782290,
+      "layout": { "x": 265, "y": 129, "width": 15, "height": 11 },
+      "definition": {
+        "title": "Response time (avg)",
+        "title_size": "13",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1 * 1000" }],
+            "conditional_formats": [
+              { "comparator": ">", "palette": "white_on_red", "value": 500 },
+              { "comparator": ">", "palette": "white_on_yellow", "value": 400 },
+              { "comparator": "<=", "palette": "white_on_green", "value": 400 }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "avg:aws.applicationelb.target_response_time.average{name:demo-int-dev}",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "avg"
+              }
+            ]
+          }
+        ],
+        "autoscale": false,
+        "custom_unit": " ms",
+        "precision": 0
+      }
+    },
+    {
+      "id": 126210182663624,
+      "layout": { "x": 179, "y": 129, "width": 14, "height": 11 },
+      "definition": {
+        "title": "Response time (avg)",
+        "title_size": "13",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1 * 1000" }],
+            "conditional_formats": [
+              { "comparator": ">", "palette": "white_on_red", "value": 500 },
+              { "comparator": ">", "palette": "white_on_yellow", "value": 400 },
+              { "comparator": "<=", "palette": "white_on_green", "value": 400 }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "avg:aws.applicationelb.target_response_time.average{name:demo-testing-dev}",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "avg"
+              }
+            ]
+          }
+        ],
+        "autoscale": false,
+        "custom_unit": " ms",
+        "precision": 0
+      }
+    },
+    {
+      "id": 1739184695066470,
+      "layout": { "x": 97, "y": 129, "width": 14, "height": 11 },
+      "definition": {
+        "title": "Response time (avg)",
+        "title_size": "13",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1 * 1000" }],
+            "conditional_formats": [
+              { "comparator": ">", "palette": "white_on_red", "value": 500 },
+              { "comparator": ">", "palette": "white_on_yellow", "value": 400 },
+              { "comparator": "<=", "palette": "white_on_green", "value": 400 }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "avg:aws.applicationelb.target_response_time.average{name:demo-staging-dev}",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "avg"
+              }
+            ]
+          }
+        ],
+        "autoscale": false,
+        "custom_unit": " ms",
+        "precision": 0
+      }
+    },
+    {
+      "id": 1552906887345194,
+      "layout": { "x": 120, "y": 310, "width": 74, "height": 20 },
+      "definition": {
+        "title": "Networking Bytes sent and recieved  [demo-testing-dev]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:ecs.fargate.net.bytes_rcvd{cluster_name:demo-testing-dev}",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": {
+              "palette": "warm",
+              "line_type": "solid",
+              "line_width": "thick"
+            },
+            "display_type": "line"
+          },
+          {
+            "formulas": [{ "formula": "query0" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:ecs.fargate.net.bytes_sent{ecs_cluster:demo-testing-dev}",
+                "data_source": "metrics",
+                "name": "query0"
+              }
+            ],
+            "style": {
+              "palette": "green",
+              "line_type": "solid",
+              "line_width": "thick"
+            },
+            "display_type": "line"
+          }
+        ]
+      }
+    },
+    {
+      "id": 7701395370921416,
+      "layout": { "x": 120, "y": 330, "width": 74, "height": 20 },
+      "definition": {
+        "title": "IO  Read/Write  [demo-testing-dev]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:ecs.fargate.io.ops.read{cluster_name:demo-testing-dev}",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": {
+              "palette": "warm",
+              "line_type": "solid",
+              "line_width": "thick"
+            },
+            "display_type": "line"
+          },
+          {
+            "formulas": [{ "formula": "query0" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:ecs.fargate.io.ops.write{ecs_cluster:demo-testing-dev}",
+                "data_source": "metrics",
+                "name": "query0"
+              }
+            ],
+            "style": {
+              "palette": "green",
+              "line_type": "solid",
+              "line_width": "thick"
+            },
+            "display_type": "line"
+          }
+        ]
+      }
+    },
+    {
+      "id": 7962624949714562,
+      "layout": { "x": 37, "y": 330, "width": 74, "height": 20 },
+      "definition": {
+        "title": "IO  Read/Write [demo-staging-dev]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:ecs.fargate.io.ops.read{ecs_cluster_name:demo-staging-dev}",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": {
+              "palette": "warm",
+              "line_type": "solid",
+              "line_width": "thick"
+            },
+            "display_type": "line"
+          },
+          {
+            "formulas": [{ "formula": "query0" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:ecs.fargate.io.ops.write{ecs_cluster:demo-staging-dev}",
+                "data_source": "metrics",
+                "name": "query0"
+              }
+            ],
+            "style": {
+              "palette": "green",
+              "line_type": "solid",
+              "line_width": "thick"
+            },
+            "display_type": "line"
+          }
+        ]
+      }
+    },
+    {
+      "id": 3112653782612650,
+      "layout": { "x": 37, "y": 309, "width": 74, "height": 20 },
+      "definition": {
+        "title": "Networking Bytes sent and recieved [demo-staging-dev]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:ecs.fargate.net.bytes_rcvd{cluster_name:demo-staging-dev}",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": {
+              "palette": "warm",
+              "line_type": "solid",
+              "line_width": "thick"
+            },
+            "display_type": "line"
+          },
+          {
+            "formulas": [{ "formula": "query0" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:ecs.fargate.net.bytes_sent{ecs_cluster:demo-staging-dev}",
+                "data_source": "metrics",
+                "name": "query0"
+              }
+            ],
+            "style": {
+              "palette": "green",
+              "line_type": "solid",
+              "line_width": "thick"
+            },
+            "display_type": "line"
+          }
+        ]
+      }
+    },
+    {
+      "id": 6278665343375150,
+      "layout": { "x": 21, "y": 308, "width": 12, "height": 41 },
+      "definition": {
+        "type": "note",
+        "content": "NETWORK USAGE",
+        "background_color": "white",
+        "font_size": "24",
+        "text_align": "center",
+        "vertical_align": "center",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": true
+      }
+    },
+    {
+      "id": 1102717291501922,
+      "layout": { "x": 204, "y": 165, "width": 77, "height": 19 },
+      "definition": {
+        "title": "HTTP 4XX 5XX Target Responses [demo-int-dev]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query3" }, { "formula": "query4" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "sum:aws.applicationelb.httpcode_target_5xx{name:demo-int-dev} by {host}.as_count()",
+                "data_source": "metrics",
+                "name": "query3"
+              },
+              {
+                "query": "sum:aws.applicationelb.httpcode_target_4xx{name:demo-int-dev} by {host}.as_count()",
+                "data_source": "metrics",
+                "name": "query4"
+              }
+            ],
+            "style": {
+              "palette": "red",
+              "line_type": "solid",
+              "line_width": "thick"
+            },
+            "display_type": "bars"
+          }
+        ]
+      }
+    },
+    {
+      "id": 434026124508636,
+      "layout": { "x": 118, "y": 165, "width": 74, "height": 19 },
+      "definition": {
+        "title": "HTTP 4XX 5XX Target Responses  [demo-testing-dev]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query3" }, { "formula": "query4" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "sum:aws.applicationelb.httpcode_target_5xx{name:demo-testing-dev} by {host}.as_count()",
+                "data_source": "metrics",
+                "name": "query3"
+              },
+              {
+                "query": "sum:aws.applicationelb.httpcode_target_4xx{name:demo-testing-dev} by {host}.as_count()",
+                "data_source": "metrics",
+                "name": "query4"
+              }
+            ],
+            "style": {
+              "palette": "red",
+              "line_type": "solid",
+              "line_width": "thick"
+            },
+            "display_type": "bars"
+          }
+        ]
+      }
+    },
+    {
+      "id": 8607017722231162,
+      "layout": { "x": 36, "y": 165, "width": 74, "height": 19 },
+      "definition": {
+        "title": "HTTP 4XX 5XX Target Responses  [demo-staging-dev]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query3" }, { "formula": "query4" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "sum:aws.applicationelb.httpcode_target_5xx{name:demo-staging-dev} by {host}.as_count()",
+                "data_source": "metrics",
+                "name": "query3"
+              },
+              {
+                "query": "sum:aws.applicationelb.httpcode_target_4xx{name:demo-staging-dev} by {host}.as_count()",
+                "data_source": "metrics",
+                "name": "query4"
+              }
+            ],
+            "style": {
+              "palette": "red",
+              "line_type": "solid",
+              "line_width": "thick"
+            },
+            "display_type": "bars"
+          }
+        ]
+      }
+    },
+    {
+      "id": 15922650338710,
+      "layout": { "x": 204, "y": 188, "width": 77, "height": 19 },
+      "definition": {
+        "title": "HTTP 2XX Target Responses [demo-int-dev]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "sum:aws.applicationelb.httpcode_target_2xx{name:demo-int-dev} by {host}.as_count()",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": {
+              "palette": "red",
+              "line_type": "solid",
+              "line_width": "thick"
+            },
+            "display_type": "bars"
+          }
+        ]
+      }
+    },
+    {
+      "id": 8827081391387816,
+      "layout": { "x": 118, "y": 188, "width": 74, "height": 19 },
+      "definition": {
+        "title": "HTTP 2XX Target Responses  [demo-testing-dev]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "sum:aws.applicationelb.httpcode_target_2xx{name:demo-testing-dev} by {host}.as_count()",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": {
+              "palette": "red",
+              "line_type": "solid",
+              "line_width": "thick"
+            },
+            "display_type": "bars"
+          }
+        ]
+      }
+    },
+    {
+      "id": 1229865866603306,
+      "layout": { "x": 36, "y": 188, "width": 74, "height": 19 },
+      "definition": {
+        "title": "HTTP 2XX Target Responses  [demo-staging-dev]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query4" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "sum:aws.applicationelb.httpcode_target_2xx{name:demo-staging-dev} by {host}.as_count()",
+                "data_source": "metrics",
+                "name": "query4"
+              }
+            ],
+            "style": {
+              "palette": "red",
+              "line_type": "solid",
+              "line_width": "thick"
+            },
+            "display_type": "bars"
+          }
+        ]
+      }
+    },
+    {
+      "id": 8497368362376590,
+      "layout": { "x": 2, "y": 203, "width": 18, "height": 60 },
+      "definition": {
+        "type": "note",
+        "content": "",
+        "background_color": "blue",
+        "font_size": "36",
+        "text_align": "center",
+        "vertical_align": "center",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": true
+      }
+    },
+    {
+      "id": 5248126130105000,
+      "layout": { "x": 2, "y": 106, "width": 18, "height": 35 },
+      "definition": {
+        "type": "note",
+        "content": "",
+        "background_color": "blue",
+        "font_size": "36",
+        "text_align": "center",
+        "vertical_align": "center",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": true
+      }
+    },
+    {
+      "id": 7005182706578756,
+      "layout": { "x": 21, "y": 201, "width": 12, "height": 27 },
+      "definition": {
+        "type": "note",
+        "content": "",
+        "background_color": "white",
+        "font_size": "24",
+        "text_align": "center",
+        "vertical_align": "center",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": true
+      }
+    },
+    {
+      "id": 8102326784453314,
+      "layout": { "x": 21, "y": 274, "width": 12, "height": 12 },
+      "definition": {
+        "type": "image",
+        "url": "/static/images/logos/aws-fargate_avatar.svg",
+        "sizing": "fit",
+        "margin": "small"
+      }
+    },
+    {
+      "id": 1262383380450914,
+      "layout": { "x": 119, "y": 21, "width": 17, "height": 11 },
+      "definition": {
+        "title": "ECS Active Services",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1 / query2" }],
+            "conditional_formats": [
+              { "comparator": ">=", "palette": "white_on_green", "value": 1 },
+              {
+                "comparator": "<",
+                "palette": "black_on_light_green",
+                "value": 1
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "sum:aws.ecs.service.running{clustername:demo-testing-dev}",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "avg"
+              },
+              {
+                "query": "avg:aws.ecs.service.running{clustername:demo-testing-dev}",
+                "data_source": "metrics",
+                "name": "query2",
+                "aggregator": "avg"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "custom_unit": " ",
+        "precision": 0
+      }
+    },
+    {
+      "id": 2444201171261114,
+      "layout": { "x": 36, "y": 21, "width": 17, "height": 11 },
+      "definition": {
+        "title": "ECS Active Services",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1 / query2" }],
+            "conditional_formats": [
+              { "comparator": ">=", "palette": "white_on_green", "value": 1 },
+              {
+                "comparator": "<",
+                "palette": "black_on_light_green",
+                "value": 1
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "sum:aws.ecs.service.running{cluster:demo-staging-dev}",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "avg"
+              },
+              {
+                "query": "avg:aws.ecs.service.running{cluster:demo-staging-dev}",
+                "data_source": "metrics",
+                "name": "query2",
+                "aggregator": "avg"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "custom_unit": " ",
+        "precision": 0
+      }
+    },
+    {
+      "id": 2329986118061038,
+      "layout": { "x": 204, "y": 34, "width": 60, "height": 12 },
+      "definition": {
+        "title": "Task in desired state/Running state",
+        "title_size": "16",
+        "title_align": "left",
+        "time": { "live_span": "5m" },
+        "type": "query_table",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "alias": "Desired",
+                "cell_display_mode": "number",
+                "limit": { "count": 500, "order": "desc" },
+                "conditional_formats": [],
+                "formula": "query1"
+              },
+              {
+                "alias": "Running",
+                "cell_display_mode": "number",
+                "formula": "query3"
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "sum:ecs.containerinsights.DesiredTaskCount{clustername:demo-int-dev} by {servicename,clustername}",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "last"
+              },
+              {
+                "query": "sum:ecs.containerinsights.RunningTaskCount{clustername:demo-int-dev} by {servicename,clustername}",
+                "data_source": "metrics",
+                "name": "query3",
+                "aggregator": "last"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": 977996897982064,
+      "layout": { "x": 264, "y": 34, "width": 17, "height": 12 },
+      "definition": {
+        "title": "Ratio of desired state/Running state",
+        "title_size": "13",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query3 / query1" }],
+            "conditional_formats": [
+              { "comparator": ">=", "palette": "white_on_green", "value": 1 },
+              { "comparator": "<", "palette": "white_on_red", "value": 1 }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "sum:ecs.containerinsights.DesiredTaskCount{clustername:demo-int-dev}",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "avg"
+              },
+              {
+                "query": "sum:ecs.containerinsights.RunningTaskCount{clustername:demo-int-dev}",
+                "data_source": "metrics",
+                "name": "query3",
+                "aggregator": "avg"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "precision": 2
+      }
+    },
+    {
+      "id": 7324961605185752,
+      "layout": { "x": 119, "y": 34, "width": 57, "height": 12 },
+      "definition": {
+        "title": "Task in desired state/Running state",
+        "title_size": "16",
+        "title_align": "left",
+        "time": { "live_span": "5m" },
+        "type": "query_table",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "alias": "Desired",
+                "cell_display_mode": "number",
+                "limit": { "count": 500, "order": "desc" },
+                "conditional_formats": [],
+                "formula": "query1"
+              },
+              {
+                "alias": "Running",
+                "cell_display_mode": "number",
+                "formula": "query3"
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "sum:ecs.containerinsights.DesiredTaskCount{clustername:demo-testing-dev} by {servicename,clustername}",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "last"
+              },
+              {
+                "query": "sum:ecs.containerinsights.RunningTaskCount{clustername:demo-testing-dev} by {servicename,clustername}",
+                "data_source": "metrics",
+                "name": "query3",
+                "aggregator": "last"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": 518910601937710,
+      "layout": { "x": 36, "y": 34, "width": 57, "height": 12 },
+      "definition": {
+        "title": "Task in desired state/Running state",
+        "title_size": "16",
+        "title_align": "left",
+        "time": { "live_span": "5m" },
+        "type": "query_table",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "alias": "Desired",
+                "cell_display_mode": "number",
+                "limit": { "count": 500, "order": "desc" },
+                "conditional_formats": [],
+                "formula": "query1"
+              },
+              {
+                "alias": "Running",
+                "cell_display_mode": "number",
+                "formula": "query3"
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "sum:ecs.containerinsights.DesiredTaskCount{clustername:demo-staging-dev} by {servicename,clustername}",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "last"
+              },
+              {
+                "query": "sum:ecs.containerinsights.RunningTaskCount{clustername:demo-staging-dev} by {servicename,clustername}",
+                "data_source": "metrics",
+                "name": "query3",
+                "aggregator": "last"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": 4429210008805166,
+      "layout": { "x": 176, "y": 34, "width": 17, "height": 12 },
+      "definition": {
+        "title": "Ratio of desired state/Running state",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query3 / query1" }],
+            "conditional_formats": [
+              { "comparator": ">=", "palette": "white_on_green", "value": 1 },
+              { "comparator": "<", "palette": "white_on_red", "value": 1 }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "sum:ecs.containerinsights.RunningTaskCount{clustername:demo-testing-dev}",
+                "data_source": "metrics",
+                "name": "query3",
+                "aggregator": "last"
+              },
+              {
+                "query": "sum:ecs.containerinsights.DesiredTaskCount{clustername:demo-testing-dev}",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "last"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "precision": 2
+      }
+    },
+    {
+      "id": 1615070305027714,
+      "layout": { "x": 93, "y": 34, "width": 17, "height": 12 },
+      "definition": {
+        "title": "Ratio of desired state/Running state",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query3 / query1" }],
+            "conditional_formats": [
+              { "comparator": ">=", "palette": "white_on_green", "value": 1 },
+              { "comparator": "<", "palette": "white_on_red", "value": 1 }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "sum:ecs.containerinsights.RunningTaskCount{clustername:demo-staging-dev}",
+                "data_source": "metrics",
+                "name": "query3",
+                "aggregator": "last"
+              },
+              {
+                "query": "sum:ecs.containerinsights.DesiredTaskCount{clustername:demo-staging-dev}",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "last"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "precision": 2
+      }
+    },
+    {
+      "id": 8095739420332040,
+      "layout": { "x": 37, "y": 352, "width": 74, "height": 27 },
+      "definition": {
+        "title": "HTTP 2XX 3XX 4XX 5XX Status Codes [demo-staging-dev]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "horizontal",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "time": {},
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "search": { "query": "source:demo-staging-dev-rails" },
+                "data_source": "logs",
+                "compute": { "interval": 20000, "aggregation": "count" },
+                "name": "query1",
+                "indexes": ["*"],
+                "group_by": [
+                  {
+                    "facet": "@http.status_code",
+                    "sort": { "aggregation": "count", "order": "desc" },
+                    "limit": 100
+                  }
+                ]
+              }
+            ],
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "thick"
+            },
+            "display_type": "line"
+          }
+        ],
+        "markers": []
+      }
+    },
+    {
+      "id": 6399445060882066,
+      "layout": { "x": 120, "y": 352, "width": 74, "height": 27 },
+      "definition": {
+        "title": "HTTP 2XX 3XX 4XX 5XX Status Codes [demo-testing-dev]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "horizontal",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "time": {},
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "search": { "query": "source:demo-testing-dev-rails" },
+                "data_source": "logs",
+                "compute": { "interval": 20000, "aggregation": "count" },
+                "name": "query1",
+                "indexes": ["*"],
+                "group_by": [
+                  {
+                    "facet": "@http.status_code",
+                    "sort": { "aggregation": "count", "order": "desc" },
+                    "limit": 100
+                  }
+                ]
+              }
+            ],
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "thick"
+            },
+            "display_type": "line"
+          }
+        ]
+      }
+    },
+    {
+      "id": 4400219961519040,
+      "layout": { "x": 204, "y": 352, "width": 77, "height": 27 },
+      "definition": {
+        "title": "HTTP 2XX 3XX 4XX 5XX Status Codes [demo-int-dev]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "horizontal",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "time": {},
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "search": { "query": "source:demo-int-dev-rails" },
+                "data_source": "logs",
+                "compute": { "interval": 20000, "aggregation": "count" },
+                "name": "query1",
+                "indexes": ["*"],
+                "group_by": [
+                  {
+                    "facet": "@http.status_code",
+                    "sort": { "aggregation": "count", "order": "desc" },
+                    "limit": 100
+                  }
+                ]
+              }
+            ],
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "thick"
+            },
+            "display_type": "line"
+          }
+        ]
+      }
+    },
+    {
+      "id": 6939199403277400,
+      "layout": { "x": 21, "y": 351, "width": 12, "height": 28 },
+      "definition": {
+        "type": "note",
+        "content": "HTTP RESPONSES",
+        "background_color": "white",
+        "font_size": "24",
+        "text_align": "center",
+        "vertical_align": "center",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": true
+      }
+    },
+    {
+      "id": 4460583067046344,
+      "layout": { "x": 2, "y": 338, "width": 18, "height": 42 },
+      "definition": {
+        "type": "note",
+        "content": "os",
+        "background_color": "blue",
+        "font_size": "36",
+        "text_align": "center",
+        "vertical_align": "top",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": true
+      }
+    }
+  ],
+  "template_variables": [],
+  "layout_type": "free",
+  "is_read_only": false,
+  "notify_list": [],
+  "id": "q7t-c97-jh5"
+}

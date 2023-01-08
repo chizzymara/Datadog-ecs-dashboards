@@ -1,0 +1,1330 @@
+{
+   "title": "[DEV] demo Containers Summary",
+   "description": "## Title\n\nDescribe this dashboard. Add links to other dashboards, monitors, wikis,  and docs to help your teammates. Markdown is supported.\n\n- [This might link to a dashboard](#)\n- [This might link to a wiki](#)",
+   "widgets": [
+      {
+         "id": 4346062780099404,
+         "layout": {
+            "x": 1,
+            "y": 16,
+            "width": 61,
+            "height": 42
+         },
+         "definition": {
+            "title": "ECS Events",
+            "title_size": "13",
+            "title_align": "left",
+            "time": {
+               "live_span": "4h"
+            },
+            "type": "event_stream",
+            "query": "sources:ecs",
+            "tags_execution": "and",
+            "event_size": "s"
+         }
+      },
+      {
+         "id": 4963549524243396,
+         "layout": {
+            "x": 6,
+            "y": 2.0694444498407503,
+            "width": 120,
+            "height": 9
+         },
+         "definition": {
+            "type": "note",
+            "content": "SUMMARY ECS AND ALB",
+            "background_color": "orange",
+            "font_size": "36",
+            "text_align": "center",
+            "vertical_align": "center",
+            "show_tick": false,
+            "tick_pos": "50%",
+            "tick_edge": "left",
+            "has_padding": true
+         }
+      },
+      {
+         "id": 2407034066796528,
+         "layout": {
+            "x": 31,
+            "y": 106,
+            "width": 26,
+            "height": 15
+         },
+         "definition": {
+            "title": "Application ELB Healthy Hosts",
+            "title_size": "16",
+            "title_align": "left",
+            "type": "query_value",
+            "requests": [
+               {
+                  "formulas": [
+                     {
+                        "formula": "query1 + query2 + query3"
+                     }
+                  ],
+                  "conditional_formats": [
+                     {
+                        "comparator": ">",
+                        "palette": "white_on_green",
+                        "value": 0
+                     },
+                     {
+                        "comparator": "<",
+                        "palette": "white_on_red",
+                        "value": 0
+                     }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                     {
+                        "query": "avg:aws.applicationelb.healthy_host_count{name:demo-int-dev}",
+                        "data_source": "metrics",
+                        "name": "query1",
+                        "aggregator": "min"
+                     },
+                     {
+                        "query": "avg:aws.applicationelb.healthy_host_count{name:demo-testing-dev}",
+                        "data_source": "metrics",
+                        "name": "query2",
+                        "aggregator": "min"
+                     },
+                     {
+                        "query": "avg:aws.applicationelb.healthy_host_count{name:demo-staging-dev}",
+                        "data_source": "metrics",
+                        "name": "query3",
+                        "aggregator": "min"
+                     }
+                  ]
+               }
+            ],
+            "autoscale": true,
+            "precision": 0
+         }
+      },
+      {
+         "id": 3628735551300026,
+         "layout": {
+            "x": 31,
+            "y": 122,
+            "width": 26,
+            "height": 15
+         },
+         "definition": {
+            "title": "Application ELB Unhealthy Hosts",
+            "title_size": "16",
+            "title_align": "left",
+            "type": "query_value",
+            "requests": [
+               {
+                  "formulas": [
+                     {
+                        "formula": "query1 + query2 + query3"
+                     }
+                  ],
+                  "conditional_formats": [
+                     {
+                        "comparator": ">",
+                        "palette": "white_on_red",
+                        "value": 0
+                     },
+                     {
+                        "comparator": "<=",
+                        "palette": "white_on_green",
+                        "value": 0
+                     }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                     {
+                        "query": "avg:aws.applicationelb.un_healthy_host_count{name:demo-int-dev}",
+                        "data_source": "metrics",
+                        "name": "query1",
+                        "aggregator": "min"
+                     },
+                     {
+                        "query": "avg:aws.applicationelb.un_healthy_host_count{name:demo-testing-dev}",
+                        "data_source": "metrics",
+                        "name": "query2",
+                        "aggregator": "min"
+                     },
+                     {
+                        "query": "avg:aws.applicationelb.un_healthy_host_count{name:demo-staging-dev}",
+                        "data_source": "metrics",
+                        "name": "query3",
+                        "aggregator": "min"
+                     }
+                  ]
+               }
+            ],
+            "autoscale": true,
+            "precision": 0
+         }
+      },
+      {
+         "id": 3370983550181280,
+         "layout": {
+            "x": 0,
+            "y": 59,
+            "width": 62,
+            "height": 34
+         },
+         "definition": {
+            "title": "Containers",
+            "title_size": "16",
+            "title_align": "left",
+            "type": "hostmap",
+            "requests": {
+               "fill": {
+                  "q": "avg:process.stat.container.cpu.system_pct{*} by {host}"
+               }
+            },
+            "node_type": "container",
+            "no_metric_hosts": true,
+            "no_group_hosts": true,
+            "group": [
+               "ecs_cluster_name",
+               "container_name"
+            ],
+            "scope": [],
+            "style": {
+               "palette": "green_to_orange",
+               "palette_flip": false
+            }
+         }
+      },
+      {
+         "id": 8549904788469682,
+         "layout": {
+            "x": 6,
+            "y": 106,
+            "width": 23,
+            "height": 15
+         },
+         "definition": {
+            "title": "Request count (avg)",
+            "title_size": "13",
+            "title_align": "left",
+            "type": "query_value",
+            "requests": [
+               {
+                  "formulas": [
+                     {
+                        "formula": "query1"
+                     }
+                  ],
+                  "conditional_formats": [
+                     {
+                        "comparator": ">",
+                        "palette": "white_on_red",
+                        "value": 500
+                     },
+                     {
+                        "comparator": ">",
+                        "palette": "white_on_yellow",
+                        "value": 400
+                     },
+                     {
+                        "comparator": "<=",
+                        "palette": "white_on_green",
+                        "value": 400
+                     }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                     {
+                        "query": "sum:aws.applicationelb.request_count{name:demo-*}.as_rate()",
+                        "data_source": "metrics",
+                        "name": "query1",
+                        "aggregator": "avg"
+                     }
+                  ]
+               }
+            ],
+            "autoscale": true,
+            "precision": 0
+         }
+      },
+      {
+         "id": 7526776436256160,
+         "layout": {
+            "x": 6,
+            "y": 122,
+            "width": 23,
+            "height": 15
+         },
+         "definition": {
+            "title": "Response Time (avg)",
+            "title_size": "13",
+            "title_align": "left",
+            "type": "query_value",
+            "requests": [
+               {
+                  "formulas": [
+                     {
+                        "formula": "query1"
+                     }
+                  ],
+                  "conditional_formats": [
+                     {
+                        "comparator": ">",
+                        "palette": "white_on_red",
+                        "value": 500
+                     },
+                     {
+                        "comparator": ">",
+                        "palette": "white_on_yellow",
+                        "value": 400
+                     },
+                     {
+                        "comparator": "<=",
+                        "palette": "white_on_green",
+                        "value": 400
+                     }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                     {
+                        "query": "sum:aws.applicationelb.target_response_time.average{name:demo-*}",
+                        "data_source": "metrics",
+                        "name": "query1",
+                        "aggregator": "avg"
+                     }
+                  ]
+               }
+            ],
+            "autoscale": true,
+            "precision": 0
+         }
+      },
+      {
+         "id": 6120655278695448,
+         "layout": {
+            "x": 31,
+            "y": 138,
+            "width": 26,
+            "height": 15
+         },
+         "definition": {
+            "title": "New Connections",
+            "title_size": "16",
+            "title_align": "left",
+            "type": "query_value",
+            "requests": [
+               {
+                  "formulas": [
+                     {
+                        "formula": "query1"
+                     }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                     {
+                        "query": "avg:aws.applicationelb.new_connection_count{name:demo-*}.as_count()",
+                        "data_source": "metrics",
+                        "name": "query1",
+                        "aggregator": "avg"
+                     }
+                  ]
+               }
+            ],
+            "autoscale": true,
+            "precision": 2
+         }
+      },
+      {
+         "id": 4213173985591604,
+         "layout": {
+            "x": 6,
+            "y": 138,
+            "width": 23,
+            "height": 15
+         },
+         "definition": {
+            "title": "Active Connections",
+            "title_size": "16",
+            "title_align": "left",
+            "type": "query_value",
+            "requests": [
+               {
+                  "formulas": [
+                     {
+                        "formula": "query1"
+                     }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                     {
+                        "query": "avg:aws.applicationelb.active_connection_count{name:demo-*}.as_count()",
+                        "data_source": "metrics",
+                        "name": "query1",
+                        "aggregator": "avg"
+                     }
+                  ]
+               }
+            ],
+            "autoscale": true,
+            "precision": 2
+         }
+      },
+      {
+         "id": 6986487846035800,
+         "layout": {
+            "x": 31,
+            "y": 155,
+            "width": 26,
+            "height": 15
+         },
+         "definition": {
+            "title": "HTTP  TARGET 4XX 5XX ",
+            "title_size": "16",
+            "title_align": "left",
+            "type": "query_value",
+            "requests": [
+               {
+                  "formulas": [
+                     {
+                        "formula": "query1 + query2"
+                     }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                     {
+                        "query": "avg:aws.applicationelb.httpcode_target_4xx{*}.as_count()",
+                        "data_source": "metrics",
+                        "name": "query1",
+                        "aggregator": "avg"
+                     },
+                     {
+                        "query": "avg:aws.applicationelb.httpcode_target_5xx{*}.as_count()",
+                        "data_source": "metrics",
+                        "name": "query2",
+                        "aggregator": "avg"
+                     }
+                  ]
+               }
+            ],
+            "autoscale": true,
+            "precision": 2
+         }
+      },
+      {
+         "id": 1006519010626086,
+         "layout": {
+            "x": 6,
+            "y": 155,
+            "width": 23,
+            "height": 15
+         },
+         "definition": {
+            "title": "HTTP ALB 4XX 5XX ",
+            "title_size": "16",
+            "title_align": "left",
+            "type": "query_value",
+            "requests": [
+               {
+                  "formulas": [
+                     {
+                        "formula": "query1 + query2"
+                     }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                     {
+                        "query": "avg:aws.applicationelb.httpcode_elb_4xx{*}.as_count()",
+                        "data_source": "metrics",
+                        "name": "query1",
+                        "aggregator": "avg"
+                     },
+                     {
+                        "query": "avg:aws.applicationelb.httpcode_elb_5xx{*}.as_count()",
+                        "data_source": "metrics",
+                        "name": "query2",
+                        "aggregator": "avg"
+                     }
+                  ]
+               }
+            ],
+            "autoscale": true,
+            "precision": 2
+         }
+      },
+      {
+         "id": 4178142202395608,
+         "layout": {
+            "x": 66,
+            "y": 64,
+            "width": 57,
+            "height": 23
+         },
+         "definition": {
+            "title": "Total CPU time Consumed per container",
+            "title_size": "16",
+            "title_align": "left",
+            "show_legend": true,
+            "legend_layout": "auto",
+            "legend_columns": [
+               "avg",
+               "min",
+               "max",
+               "value",
+               "sum"
+            ],
+            "type": "timeseries",
+            "requests": [
+               {
+                  "formulas": [
+                     {
+                        "formula": "query1"
+                     }
+                  ],
+                  "response_format": "timeseries",
+                  "queries": [
+                     {
+                        "query": "avg:ecs.fargate.cpu.user{ecs_cluster:*} by {cluster_name,container_name}",
+                        "data_source": "metrics",
+                        "name": "query1"
+                     }
+                  ],
+                  "style": {
+                     "palette": "warm",
+                     "line_type": "solid",
+                     "line_width": "thick"
+                  },
+                  "display_type": "line"
+               }
+            ]
+         }
+      },
+      {
+         "id": 3724906648659898,
+         "layout": {
+            "x": 126,
+            "y": 64,
+            "width": 56,
+            "height": 23
+         },
+         "definition": {
+            "title": "Total CPU usage per cluster",
+            "title_size": "16",
+            "title_align": "left",
+            "show_legend": true,
+            "legend_layout": "auto",
+            "legend_columns": [
+               "avg",
+               "min",
+               "max",
+               "value",
+               "sum"
+            ],
+            "type": "timeseries",
+            "requests": [
+               {
+                  "formulas": [
+                     {
+                        "formula": "query1"
+                     }
+                  ],
+                  "response_format": "timeseries",
+                  "queries": [
+                     {
+                        "query": "avg:ecs.fargate.cpu.percent{ecs_cluster:*} by {cluster_name}",
+                        "data_source": "metrics",
+                        "name": "query1"
+                     }
+                  ],
+                  "style": {
+                     "palette": "warm",
+                     "line_type": "solid",
+                     "line_width": "thick"
+                  },
+                  "display_type": "line"
+               }
+            ]
+         }
+      },
+      {
+         "id": 6479602025963148,
+         "layout": {
+            "x": 66,
+            "y": 102,
+            "width": 57,
+            "height": 20
+         },
+         "definition": {
+            "title": "Networking Bytes recieved per Container",
+            "title_size": "16",
+            "title_align": "left",
+            "show_legend": true,
+            "legend_layout": "auto",
+            "legend_columns": [
+               "avg",
+               "min",
+               "max",
+               "value",
+               "sum"
+            ],
+            "type": "timeseries",
+            "requests": [
+               {
+                  "formulas": [
+                     {
+                        "formula": "query1"
+                     }
+                  ],
+                  "response_format": "timeseries",
+                  "queries": [
+                     {
+                        "query": "avg:ecs.fargate.net.bytes_rcvd{cluster_name:demo-*} by {cluster_name,container_name}",
+                        "data_source": "metrics",
+                        "name": "query1"
+                     }
+                  ],
+                  "style": {
+                     "palette": "warm",
+                     "line_type": "solid",
+                     "line_width": "thick"
+                  },
+                  "display_type": "line"
+               }
+            ]
+         }
+      },
+      {
+         "id": 4459721284707672,
+         "layout": {
+            "x": 66,
+            "y": 148,
+            "width": 57,
+            "height": 23
+         },
+         "definition": {
+            "title": "IO  Read/Write Per Cluster",
+            "title_size": "16",
+            "title_align": "left",
+            "show_legend": true,
+            "legend_layout": "auto",
+            "legend_columns": [
+               "avg",
+               "min",
+               "max",
+               "value",
+               "sum"
+            ],
+            "type": "timeseries",
+            "requests": [
+               {
+                  "formulas": [
+                     {
+                        "formula": "query1"
+                     }
+                  ],
+                  "response_format": "timeseries",
+                  "queries": [
+                     {
+                        "query": "avg:ecs.fargate.io.ops.read{ecs_cluster_name:demo-*} by {cluster_name}",
+                        "data_source": "metrics",
+                        "name": "query1"
+                     }
+                  ],
+                  "style": {
+                     "palette": "blue",
+                     "line_type": "solid",
+                     "line_width": "thick"
+                  },
+                  "display_type": "line"
+               },
+               {
+                  "formulas": [
+                     {
+                        "formula": "query0"
+                     }
+                  ],
+                  "response_format": "timeseries",
+                  "queries": [
+                     {
+                        "query": "avg:ecs.fargate.io.ops.write{ecs_cluster:demo-*} by {cluster_name}",
+                        "data_source": "metrics",
+                        "name": "query0"
+                     }
+                  ],
+                  "style": {
+                     "palette": "red",
+                     "line_type": "solid",
+                     "line_width": "thick"
+                  },
+                  "display_type": "line"
+               }
+            ]
+         }
+      },
+      {
+         "id": 6076205721918812,
+         "layout": {
+            "x": 126,
+            "y": 102,
+            "width": 56,
+            "height": 20
+         },
+         "definition": {
+            "title": "Networking Bytes recieved per Cluster",
+            "title_size": "16",
+            "title_align": "left",
+            "show_legend": true,
+            "legend_layout": "auto",
+            "legend_columns": [
+               "avg",
+               "min",
+               "max",
+               "value",
+               "sum"
+            ],
+            "type": "timeseries",
+            "requests": [
+               {
+                  "formulas": [
+                     {
+                        "formula": "query1"
+                     }
+                  ],
+                  "response_format": "timeseries",
+                  "queries": [
+                     {
+                        "query": "avg:ecs.fargate.net.bytes_rcvd{cluster_name:demo-*} by {cluster_name}",
+                        "data_source": "metrics",
+                        "name": "query1"
+                     }
+                  ],
+                  "style": {
+                     "palette": "warm",
+                     "line_type": "solid",
+                     "line_width": "thick"
+                  },
+                  "display_type": "line"
+               }
+            ]
+         }
+      },
+      {
+         "id": 3255922268351746,
+         "layout": {
+            "x": 66,
+            "y": 125,
+            "width": 57,
+            "height": 20
+         },
+         "definition": {
+            "title": "Networking Bytes Sent per Container",
+            "title_size": "16",
+            "title_align": "left",
+            "show_legend": true,
+            "legend_layout": "auto",
+            "legend_columns": [
+               "avg",
+               "min",
+               "max",
+               "value",
+               "sum"
+            ],
+            "type": "timeseries",
+            "requests": [
+               {
+                  "formulas": [
+                     {
+                        "formula": "query1"
+                     }
+                  ],
+                  "response_format": "timeseries",
+                  "queries": [
+                     {
+                        "query": "avg:ecs.fargate.net.bytes_sent{cluster_name:demo-*} by {cluster_name,container_name}",
+                        "data_source": "metrics",
+                        "name": "query1"
+                     }
+                  ],
+                  "style": {
+                     "palette": "warm",
+                     "line_type": "solid",
+                     "line_width": "thick"
+                  },
+                  "display_type": "line"
+               }
+            ]
+         }
+      },
+      {
+         "id": 2027264035871576,
+         "layout": {
+            "x": 126,
+            "y": 125,
+            "width": 56,
+            "height": 20
+         },
+         "definition": {
+            "title": "Networking Bytes Sent per Container",
+            "title_size": "16",
+            "title_align": "left",
+            "show_legend": true,
+            "legend_layout": "auto",
+            "legend_columns": [
+               "avg",
+               "min",
+               "max",
+               "value",
+               "sum"
+            ],
+            "type": "timeseries",
+            "requests": [
+               {
+                  "formulas": [
+                     {
+                        "formula": "query1"
+                     }
+                  ],
+                  "response_format": "timeseries",
+                  "queries": [
+                     {
+                        "query": "avg:ecs.fargate.net.bytes_sent{cluster_name:demo-*} by {cluster_name}",
+                        "data_source": "metrics",
+                        "name": "query1"
+                     }
+                  ],
+                  "style": {
+                     "palette": "warm",
+                     "line_type": "solid",
+                     "line_width": "thick"
+                  },
+                  "display_type": "line"
+               }
+            ]
+         }
+      },
+      {
+         "id": 1974778867724524,
+         "layout": {
+            "x": 126,
+            "y": 148,
+            "width": 56,
+            "height": 23
+         },
+         "definition": {
+            "title": "IO  Read/Write Per Container",
+            "title_size": "16",
+            "title_align": "left",
+            "show_legend": true,
+            "legend_layout": "auto",
+            "legend_columns": [
+               "avg",
+               "min",
+               "max",
+               "value",
+               "sum"
+            ],
+            "type": "timeseries",
+            "requests": [
+               {
+                  "formulas": [
+                     {
+                        "formula": "query1"
+                     }
+                  ],
+                  "response_format": "timeseries",
+                  "queries": [
+                     {
+                        "query": "avg:ecs.fargate.io.ops.read{ecs_cluster_name:demo-*} by {cluster_name,container_name}",
+                        "data_source": "metrics",
+                        "name": "query1"
+                     }
+                  ],
+                  "style": {
+                     "palette": "blue",
+                     "line_type": "solid",
+                     "line_width": "thick"
+                  },
+                  "display_type": "line"
+               },
+               {
+                  "formulas": [
+                     {
+                        "formula": "query0"
+                     }
+                  ],
+                  "response_format": "timeseries",
+                  "queries": [
+                     {
+                        "query": "avg:ecs.fargate.io.ops.write{ecs_cluster:demo-*} by {cluster_name,container_name}",
+                        "data_source": "metrics",
+                        "name": "query0"
+                     }
+                  ],
+                  "style": {
+                     "palette": "red",
+                     "line_type": "solid",
+                     "line_width": "thick"
+                  },
+                  "display_type": "line"
+               }
+            ]
+         }
+      },
+      {
+         "id": 5209229279247190,
+         "layout": {
+            "x": 5,
+            "y": 95,
+            "width": 51,
+            "height": 10
+         },
+         "definition": {
+            "type": "note",
+            "content": "ALB SUMMARY",
+            "background_color": "vivid_orange",
+            "font_size": "36",
+            "text_align": "center",
+            "vertical_align": "center",
+            "show_tick": true,
+            "tick_pos": "50%",
+            "tick_edge": "bottom",
+            "has_padding": false
+         }
+      },
+      {
+         "id": 2280979696756938,
+         "layout": {
+            "x": 72,
+            "y": 90,
+            "width": 104,
+            "height": 11
+         },
+         "definition": {
+            "type": "note",
+            "content": "ECS NETWORKING SUMMARY",
+            "background_color": "vivid_orange",
+            "font_size": "36",
+            "text_align": "center",
+            "vertical_align": "center",
+            "show_tick": true,
+            "tick_pos": "50%",
+            "tick_edge": "bottom",
+            "has_padding": false
+         }
+      },
+      {
+         "id": 7975793023590978,
+         "layout": {
+            "x": 72,
+            "y": 53,
+            "width": 104,
+            "height": 11
+         },
+         "definition": {
+            "type": "note",
+            "content": "ECS CPU USAGE SUMMARY",
+            "background_color": "vivid_orange",
+            "font_size": "36",
+            "text_align": "center",
+            "vertical_align": "center",
+            "show_tick": true,
+            "tick_pos": "50%",
+            "tick_edge": "bottom",
+            "has_padding": false
+         }
+      },
+      {
+         "id": 2622476260480830,
+         "layout": {
+            "x": 71,
+            "y": 12,
+            "width": 104,
+            "height": 9
+         },
+         "definition": {
+            "type": "note",
+            "content": "ECS MEMORY USAGE SUMMARY",
+            "background_color": "vivid_orange",
+            "font_size": "36",
+            "text_align": "center",
+            "vertical_align": "center",
+            "show_tick": true,
+            "tick_pos": "50%",
+            "tick_edge": "bottom",
+            "has_padding": false
+         }
+      },
+      {
+         "id": 61966510383708,
+         "layout": {
+            "x": 70,
+            "y": 22,
+            "width": 106,
+            "height": 30
+         },
+         "definition": {
+            "title": "Memory Usage by Clusters and Containers",
+            "title_size": "16",
+            "title_align": "left",
+            "requests": [
+               {
+                  "formulas": [
+                     {
+                        "formula": "query1"
+                     }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                     {
+                        "query": "avg:ecs.fargate.mem.usage{ecs_cluster:*} by {cluster_name,container_name}",
+                        "data_source": "metrics",
+                        "name": "query1",
+                        "aggregator": "sum"
+                     }
+                  ]
+               }
+            ],
+            "type": "sunburst",
+            "legend": {
+               "type": "table"
+            }
+         }
+      },
+      {
+         "id": 6706045447650506,
+         "layout": {
+            "x": 180,
+            "y": 21,
+            "width": 35,
+            "height": 12
+         },
+         "definition": {
+            "title": "Task in desired state/Running state",
+            "title_size": "16",
+            "title_align": "left",
+            "type": "query_table",
+            "requests": [
+               {
+                  "formulas": [
+                     {
+                        "alias": "Desired",
+                        "cell_display_mode": "number",
+                        "limit": {
+                           "count": 500,
+                           "order": "desc"
+                        },
+                        "conditional_formats": [],
+                        "formula": "query1"
+                     },
+                     {
+                        "alias": "Running",
+                        "cell_display_mode": "number",
+                        "formula": "query3"
+                     }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                     {
+                        "query": "sum:ecs.containerinsights.DesiredTaskCount{clustername:demo-int-dev} by {servicename,clustername}",
+                        "data_source": "metrics",
+                        "name": "query1",
+                        "aggregator": "avg"
+                     },
+                     {
+                        "query": "sum:ecs.containerinsights.RunningTaskCount{clustername:demo-int-dev} by {servicename,clustername}",
+                        "data_source": "metrics",
+                        "name": "query3",
+                        "aggregator": "avg"
+                     }
+                  ]
+               }
+            ]
+         }
+      },
+      {
+         "id": 5937954846920176,
+         "layout": {
+            "x": 215,
+            "y": 21,
+            "width": 13,
+            "height": 12
+         },
+         "definition": {
+            "title": "Task in desired state/Running state",
+            "title_size": "13",
+            "title_align": "left",
+            "type": "query_value",
+            "requests": [
+               {
+                  "formulas": [
+                     {
+                        "formula": "query3 / query1"
+                     }
+                  ],
+                  "conditional_formats": [
+                     {
+                        "comparator": ">=",
+                        "palette": "white_on_green",
+                        "value": 1
+                     },
+                     {
+                        "comparator": "<",
+                        "palette": "white_on_red",
+                        "value": 1
+                     }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                     {
+                        "query": "sum:ecs.containerinsights.DesiredTaskCount{clustername:demo-int-dev}",
+                        "data_source": "metrics",
+                        "name": "query1",
+                        "aggregator": "avg"
+                     },
+                     {
+                        "query": "sum:ecs.containerinsights.RunningTaskCount{clustername:demo-int-dev}",
+                        "data_source": "metrics",
+                        "name": "query3",
+                        "aggregator": "avg"
+                     }
+                  ]
+               }
+            ],
+            "autoscale": true,
+            "precision": 2
+         }
+      },
+      {
+         "id": 8515767906942912,
+         "layout": {
+            "x": 180,
+            "y": 34,
+            "width": 35,
+            "height": 12
+         },
+         "definition": {
+            "title": "Task in desired state/Running state",
+            "title_size": "16",
+            "title_align": "left",
+            "type": "query_table",
+            "requests": [
+               {
+                  "formulas": [
+                     {
+                        "alias": "Desired",
+                        "cell_display_mode": "number",
+                        "limit": {
+                           "count": 500,
+                           "order": "desc"
+                        },
+                        "conditional_formats": [],
+                        "formula": "query1"
+                     },
+                     {
+                        "alias": "Running",
+                        "cell_display_mode": "number",
+                        "formula": "query3"
+                     }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                     {
+                        "query": "sum:ecs.containerinsights.DesiredTaskCount{clustername:demo-testing-dev} by {servicename,clustername}",
+                        "data_source": "metrics",
+                        "name": "query1",
+                        "aggregator": "avg"
+                     },
+                     {
+                        "query": "sum:ecs.containerinsights.RunningTaskCount{clustername:demo-testing-dev} by {servicename,clustername}",
+                        "data_source": "metrics",
+                        "name": "query3",
+                        "aggregator": "avg"
+                     }
+                  ]
+               }
+            ]
+         }
+      },
+      {
+         "id": 7685231409124694,
+         "layout": {
+            "x": 180,
+            "y": 47,
+            "width": 35,
+            "height": 12
+         },
+         "definition": {
+            "title": "Task in desired state/Running state",
+            "title_size": "16",
+            "title_align": "left",
+            "type": "query_table",
+            "requests": [
+               {
+                  "formulas": [
+                     {
+                        "alias": "Desired",
+                        "cell_display_mode": "number",
+                        "limit": {
+                           "count": 500,
+                           "order": "desc"
+                        },
+                        "conditional_formats": [],
+                        "formula": "query1"
+                     },
+                     {
+                        "alias": "Running",
+                        "cell_display_mode": "number",
+                        "formula": "query3"
+                     }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                     {
+                        "query": "sum:ecs.containerinsights.DesiredTaskCount{clustername:demo-staging-dev} by {servicename,clustername}",
+                        "data_source": "metrics",
+                        "name": "query1",
+                        "aggregator": "avg"
+                     },
+                     {
+                        "query": "sum:ecs.containerinsights.RunningTaskCount{clustername:demo-staging-dev} by {servicename,clustername}",
+                        "data_source": "metrics",
+                        "name": "query3",
+                        "aggregator": "avg"
+                     }
+                  ]
+               }
+            ]
+         }
+      },
+      {
+         "id": 3886716989779216,
+         "layout": {
+            "x": 215,
+            "y": 34,
+            "width": 13,
+            "height": 12
+         },
+         "definition": {
+            "title": "Task in desired state/Running state",
+            "title_size": "16",
+            "title_align": "left",
+            "type": "query_value",
+            "requests": [
+               {
+                  "formulas": [
+                     {
+                        "formula": "query3 / query1"
+                     }
+                  ],
+                  "conditional_formats": [
+                     {
+                        "comparator": ">=",
+                        "palette": "white_on_green",
+                        "value": 1
+                     },
+                     {
+                        "comparator": "<",
+                        "palette": "white_on_red",
+                        "value": 1
+                     }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                     {
+                        "query": "sum:ecs.containerinsights.RunningTaskCount{clustername:demo-testing-dev}",
+                        "data_source": "metrics",
+                        "name": "query3",
+                        "aggregator": "avg"
+                     },
+                     {
+                        "query": "sum:ecs.containerinsights.DesiredTaskCount{clustername:demo-testing-dev}",
+                        "data_source": "metrics",
+                        "name": "query1",
+                        "aggregator": "avg"
+                     }
+                  ]
+               }
+            ],
+            "autoscale": true,
+            "precision": 2
+         }
+      },
+      {
+         "id": 8170377877093704,
+         "layout": {
+            "x": 215,
+            "y": 47,
+            "width": 13,
+            "height": 12
+         },
+         "definition": {
+            "title": "Task in desired state/Running state",
+            "title_size": "16",
+            "title_align": "left",
+            "type": "query_value",
+            "requests": [
+               {
+                  "formulas": [
+                     {
+                        "formula": "query3 / query1"
+                     }
+                  ],
+                  "conditional_formats": [
+                     {
+                        "comparator": ">=",
+                        "palette": "white_on_green",
+                        "value": 1
+                     },
+                     {
+                        "comparator": "<",
+                        "palette": "white_on_red",
+                        "value": 1
+                     }
+                  ],
+                  "response_format": "scalar",
+                  "queries": [
+                     {
+                        "query": "sum:ecs.containerinsights.RunningTaskCount{clustername:demo-staging-dev}",
+                        "data_source": "metrics",
+                        "name": "query3",
+                        "aggregator": "avg"
+                     },
+                     {
+                        "query": "sum:ecs.containerinsights.DesiredTaskCount{clustername:demo-staging-dev}",
+                        "data_source": "metrics",
+                        "name": "query1",
+                        "aggregator": "avg"
+                     }
+                  ]
+               }
+            ],
+            "autoscale": true,
+            "precision": 2
+         }
+      },
+      {
+         "id": 8418711903689530,
+         "layout": {
+            "x": 179,
+            "y": 10,
+            "width": 49,
+            "height": 10
+         },
+         "definition": {
+            "type": "note",
+            "content": "ECS TASK PENDING/DESIRED STATE SUMMARY",
+            "background_color": "vivid_orange",
+            "font_size": "36",
+            "text_align": "center",
+            "vertical_align": "center",
+            "show_tick": true,
+            "tick_pos": "50%",
+            "tick_edge": "bottom",
+            "has_padding": true
+         }
+      }
+   ],
+   "template_variables": [],
+   "layout_type": "free",
+   "is_read_only": false,
+   "notify_list": [],
+   "id": "78d-t7k-rqs"
+}

@@ -1,0 +1,1010 @@
+{
+  "title": "[DEV] demo-console-tasks",
+  "description": "## Title\n\nDescribe this dashboard. Add links to other dashboards, monitors, wikis,  and docs to help your teammates. Markdown is supported.\n\n- [This might link to a dashboard](#)\n- [This might link to a wiki](#) (cloned)",
+  "widgets": [
+    {
+      "id": 6890151699773512,
+      "layout": { "x": 53, "y": 27, "width": 47, "height": 17 },
+      "definition": {
+        "title": "cpu user [$cluster_name ]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:ecs.fargate.cpu.user{$cluster_name,$task_family,$container_name,$container_id} by {container_id}",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ],
+        "markers": []
+      }
+    },
+    {
+      "id": 2942125425280458,
+      "layout": { "x": 1, "y": 8, "width": 50, "height": 17 },
+      "definition": {
+        "title": "Total cpu usage [$cluster_name ]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:ecs.fargate.cpu.usage{$container_name,$task_family,$cluster_name,$container_id} by {container_id}",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ],
+        "markers": []
+      }
+    },
+    {
+      "id": 3453392262077050,
+      "layout": { "x": 53, "y": 8, "width": 47, "height": 17 },
+      "definition": {
+        "title": "cpu percent [$cluster_name ]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:ecs.fargate.cpu.percent{$container_name,$task_family,$cluster_name,$container_id} by {container_id}",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ],
+        "markers": []
+      }
+    },
+    {
+      "id": 8738967794509458,
+      "layout": { "x": 1, "y": 1, "width": 99, "height": 5 },
+      "definition": {
+        "type": "note",
+        "content": "CPU Utilization",
+        "background_color": "purple",
+        "font_size": "36",
+        "text_align": "center",
+        "vertical_align": "center",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": true
+      }
+    },
+    {
+      "id": 8483783604263064,
+      "layout": { "x": 1, "y": 48, "width": 120, "height": 6 },
+      "definition": {
+        "type": "note",
+        "content": "MEMORY",
+        "background_color": "purple",
+        "font_size": "36",
+        "text_align": "center",
+        "vertical_align": "center",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": true
+      }
+    },
+    {
+      "id": 5363831619412128,
+      "layout": { "x": 1, "y": 56, "width": 59, "height": 42 },
+      "definition": {
+        "title": "Memory usage GiB [$cluster_name]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:container.memory.usage{$container_name,$task_family,$cluster_name,$container_id} by {container_id}",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": { "palette": "dog_classic" },
+            "display_type": "line"
+          }
+        ],
+        "yaxis": {
+          "include_zero": true,
+          "scale": "linear",
+          "min": "auto",
+          "max": "auto"
+        }
+      }
+    },
+    {
+      "id": 328777413610660,
+      "layout": { "x": 110, "y": 56, "width": 46, "height": 20 },
+      "definition": {
+        "title": "Memory rss usage MiB [$cluster_name]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:container.memory.rss{$container_name,$task_family,$cluster_name,$container_id} by {container_id}",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": { "palette": "dog_classic" },
+            "display_type": "line"
+          }
+        ],
+        "yaxis": {
+          "include_zero": true,
+          "scale": "linear",
+          "min": "auto",
+          "max": "auto"
+        }
+      }
+    },
+    {
+      "id": 2098512772817300,
+      "layout": { "x": 172, "y": 8, "width": 28, "height": 16 },
+      "definition": {
+        "title": "IO Read [$cluster_name]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:ecs.fargate.io.ops.read{$container_name,$task_family,$cluster_name,$container_id} by {container_id}",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": { "palette": "dog_classic", "line_width": "thick" },
+            "display_type": "line"
+          }
+        ],
+        "yaxis": {
+          "include_zero": true,
+          "scale": "linear",
+          "min": "auto",
+          "max": "auto"
+        }
+      }
+    },
+    {
+      "id": 2636991990593286,
+      "layout": { "x": 2, "y": 130, "width": 63, "height": 17 },
+      "definition": {
+        "title": "Net bytes Recieved [$cluster_name]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query2" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:ecs.fargate.net.bytes_rcvd{$container_name,$task_family,$cluster_name,$container_id} by {container_id}",
+                "data_source": "metrics",
+                "name": "query2"
+              }
+            ],
+            "style": {
+              "palette": "cool",
+              "line_type": "solid",
+              "line_width": "thick"
+            },
+            "display_type": "line"
+          }
+        ]
+      }
+    },
+    {
+      "id": 5408627071367784,
+      "layout": { "x": 2, "y": 122, "width": 120, "height": 6 },
+      "definition": {
+        "type": "note",
+        "content": "NETWORKING ",
+        "background_color": "purple",
+        "font_size": "36",
+        "text_align": "center",
+        "vertical_align": "center",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": true
+      }
+    },
+    {
+      "id": 3468615248244888,
+      "layout": { "x": 2, "y": 149, "width": 63, "height": 17 },
+      "definition": {
+        "title": "Net bytes Sent [$cluster_name]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query2" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:ecs.fargate.net.bytes_sent{$container_name,$task_family,$cluster_name,$container_id} by {container_id}",
+                "data_source": "metrics",
+                "name": "query2"
+              }
+            ],
+            "style": {
+              "palette": "cool",
+              "line_type": "solid",
+              "line_width": "thick"
+            },
+            "display_type": "line"
+          }
+        ]
+      }
+    },
+    {
+      "id": 2970772334018704,
+      "layout": { "x": 142, "y": 26, "width": 28, "height": 18 },
+      "definition": {
+        "title": "IO Write [$cluster_name]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:ecs.fargate.io.ops.write{$container_name,$task_family,$cluster_name,$container_id} by {container_id}",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": { "palette": "dog_classic", "line_width": "thick" },
+            "display_type": "line"
+          }
+        ],
+        "yaxis": {
+          "include_zero": true,
+          "scale": "linear",
+          "min": "auto",
+          "max": "auto"
+        }
+      }
+    },
+    {
+      "id": 6350044521855566,
+      "layout": { "x": 117, "y": 48, "width": 83, "height": 6 },
+      "definition": {
+        "type": "note",
+        "content": "",
+        "background_color": "purple",
+        "font_size": "36",
+        "text_align": "center",
+        "vertical_align": "center",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": true
+      }
+    },
+    {
+      "id": 3588637965158278,
+      "layout": { "x": 122, "y": 122, "width": 78, "height": 6 },
+      "definition": {
+        "type": "note",
+        "content": "",
+        "background_color": "purple",
+        "font_size": "36",
+        "text_align": "center",
+        "vertical_align": "center",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": true
+      }
+    },
+    {
+      "id": 7925125244686974,
+      "layout": { "x": 103, "y": 19, "width": 36, "height": 25 },
+      "definition": {
+        "title": "Container Uptime [$cluster_name]",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_table",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "formula": "query1",
+                "conditional_formats": [],
+                "limit": { "count": 500, "order": "desc" }
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "avg:container.uptime{$cluster_name,$container_name,$task_family,$container_id} by {container_id,cluster_name}",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "avg"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": 4321684297704018,
+      "layout": { "x": 1, "y": 27, "width": 50, "height": 17 },
+      "definition": {
+        "title": "System cpu usage [$cluster_name ]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:container.cpu.system{$container_name,$task_family,$cluster_name,$container_id} by {container_id}",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": {
+              "palette": "dog_classic",
+              "line_type": "solid",
+              "line_width": "normal"
+            },
+            "display_type": "line"
+          }
+        ],
+        "markers": []
+      }
+    },
+    {
+      "id": 8129062385700678,
+      "layout": { "x": 158, "y": 56, "width": 42, "height": 20 },
+      "definition": {
+        "title": "Memory Cache MiB [$cluster_name]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:container.memory.cache{$container_name,$task_family,$cluster_name,$container_id} by {container_id}",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": { "palette": "dog_classic" },
+            "display_type": "line"
+          }
+        ],
+        "yaxis": {
+          "include_zero": true,
+          "scale": "linear",
+          "min": "auto",
+          "max": "auto"
+        }
+      }
+    },
+    {
+      "id": 7113094577350620,
+      "layout": { "x": 62, "y": 56, "width": 46, "height": 20 },
+      "definition": {
+        "title": "Memory Limit MiB [$cluster_name]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:container.memory.limit{$container_name,$task_family,$cluster_name,$container_id} by {container_id}",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": { "palette": "dog_classic" },
+            "display_type": "line"
+          }
+        ],
+        "yaxis": {
+          "include_zero": true,
+          "scale": "linear",
+          "min": "auto",
+          "max": "auto"
+        }
+      }
+    },
+    {
+      "id": 4094831507402980,
+      "layout": { "x": 103, "y": 1, "width": 36, "height": 5 },
+      "definition": {
+        "type": "note",
+        "content": "UPTIME",
+        "background_color": "purple",
+        "font_size": "36",
+        "text_align": "center",
+        "vertical_align": "center",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": true
+      }
+    },
+    {
+      "id": 8991578433238782,
+      "layout": { "x": 142, "y": 8, "width": 28, "height": 16 },
+      "definition": {
+        "title": "Total bytes read [$cluster_name]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:ecs.fargate.io.bytes.read{$container_name,$task_family,$cluster_name,$container_id} by {container_id}",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": { "palette": "dog_classic", "line_width": "thick" },
+            "display_type": "line"
+          }
+        ],
+        "yaxis": {
+          "include_zero": true,
+          "scale": "linear",
+          "min": "auto",
+          "max": "auto"
+        }
+      }
+    },
+    {
+      "id": 3163732412417014,
+      "layout": { "x": 172, "y": 26, "width": 28, "height": 18 },
+      "definition": {
+        "title": "Total bytes written [$cluster_name]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:ecs.fargate.io.bytes.write{$container_name,$task_family,$cluster_name,$container_id} by {container_id}",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": { "palette": "dog_classic", "line_width": "thick" },
+            "display_type": "line"
+          }
+        ],
+        "yaxis": {
+          "include_zero": true,
+          "scale": "linear",
+          "min": "auto",
+          "max": "auto"
+        }
+      }
+    },
+    {
+      "id": 5404258882444642,
+      "layout": { "x": 67, "y": 149, "width": 70, "height": 17 },
+      "definition": {
+        "title": "Sent Errors [$cluster_name]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:ecs.fargate.net.sent_errors{$container_name,$task_family,$cluster_name,$container_id} by {container_id}",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": { "palette": "dog_classic", "line_width": "thick" },
+            "display_type": "line"
+          }
+        ],
+        "yaxis": {
+          "include_zero": true,
+          "scale": "linear",
+          "min": "auto",
+          "max": "auto"
+        }
+      }
+    },
+    {
+      "id": 7534148088537590,
+      "layout": { "x": 67, "y": 130, "width": 70, "height": 17 },
+      "definition": {
+        "title": "Recieved Errors [$cluster_name]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:ecs.fargate.net.rcvd_errors{$container_name,$task_family,$cluster_name,$container_id} by {container_id}",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": { "palette": "dog_classic", "line_width": "thick" },
+            "display_type": "line"
+          }
+        ],
+        "yaxis": {
+          "include_zero": true,
+          "scale": "linear",
+          "min": "auto",
+          "max": "auto"
+        }
+      }
+    },
+    {
+      "id": 228278060750280,
+      "layout": { "x": 62, "y": 78, "width": 71, "height": 20 },
+      "definition": {
+        "title": "Inactive file [$cluster_name]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:ecs.fargate.mem.inactive_file{$container_name,$task_family,$cluster_name,$container_id} by {container_id}",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": { "palette": "dog_classic", "line_width": "thick" },
+            "display_type": "line"
+          }
+        ],
+        "yaxis": {
+          "include_zero": true,
+          "scale": "linear",
+          "min": "auto",
+          "max": "auto"
+        }
+      }
+    },
+    {
+      "id": 2356490833032182,
+      "layout": { "x": 1, "y": 100, "width": 65, "height": 18 },
+      "definition": {
+        "title": "Mem pgpgin per sec [$cluster_name]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "alias": "mem pgpgin", "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:ecs.fargate.mem.pgpgin{$container_name,$task_family,$cluster_name,$container_id} by {container_id}",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": { "palette": "dog_classic", "line_width": "normal" },
+            "display_type": "line"
+          }
+        ],
+        "yaxis": {
+          "include_zero": true,
+          "scale": "linear",
+          "min": "auto",
+          "max": "auto"
+        }
+      }
+    },
+    {
+      "id": 284125224231506,
+      "layout": { "x": 69, "y": 100, "width": 64, "height": 18 },
+      "definition": {
+        "title": "Mem pgpgout per sec [$cluster_name]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "alias": "mem pgpgout", "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:ecs.fargate.mem.pgpgout{$container_name,$task_family,$cluster_name,$container_id} by {container_id}",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": { "palette": "dog_classic", "line_width": "normal" },
+            "display_type": "line"
+          }
+        ],
+        "yaxis": {
+          "include_zero": true,
+          "scale": "linear",
+          "min": "auto",
+          "max": "auto"
+        }
+      }
+    },
+    {
+      "id": 5931756955025518,
+      "layout": { "x": 135, "y": 100, "width": 65, "height": 18 },
+      "definition": {
+        "title": "Mem pgfault per sec [$cluster_name]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "alias": "mem pgfault", "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:ecs.fargate.mem.pgfault{$container_name,$task_family,$cluster_name,$container_id} by {container_id}",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": { "palette": "dog_classic", "line_width": "normal" },
+            "display_type": "line"
+          }
+        ],
+        "yaxis": {
+          "include_zero": true,
+          "scale": "linear",
+          "min": "auto",
+          "max": "auto"
+        },
+        "markers": []
+      }
+    },
+    {
+      "id": 6328804291448832,
+      "layout": { "x": 139, "y": 130, "width": 61, "height": 36 },
+      "definition": {
+        "title": "Ingoing/outgoing packets dropped [$cluster_name]",
+        "title_size": "16",
+        "title_align": "left",
+        "type": "query_table",
+        "requests": [
+          {
+            "formulas": [
+              {
+                "alias": "Net packet_in dropped",
+                "cell_display_mode": "number",
+                "limit": { "count": 500, "order": "desc" },
+                "conditional_formats": [
+                  { "palette": "white_on_green", "comparator": ">", "value": 0 }
+                ],
+                "formula": "query2"
+              },
+              {
+                "alias": "Net packet_out dropped",
+                "cell_display_mode": "number",
+                "conditional_formats": [
+                  { "palette": "white_on_green", "comparator": ">", "value": 0 }
+                ],
+                "formula": "query1"
+              }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "avg:ecs.fargate.net.packet.in_dropped{$container_name,$task_family,$cluster_name,$container_id} by {container_id,cluster_name}",
+                "data_source": "metrics",
+                "name": "query2",
+                "aggregator": "avg"
+              },
+              {
+                "query": "avg:ecs.fargate.net.packet.out_dropped{$container_name,$task_family,$cluster_name,$container_id} by {container_id,cluster_name}",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "avg"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": 582203237708436,
+      "layout": { "x": 135, "y": 78, "width": 65, "height": 20 },
+      "definition": {
+        "title": "Active file [$cluster_name]",
+        "title_size": "16",
+        "title_align": "left",
+        "show_legend": true,
+        "legend_layout": "auto",
+        "legend_columns": ["avg", "min", "max", "value", "sum"],
+        "type": "timeseries",
+        "requests": [
+          {
+            "formulas": [{ "formula": "query1" }],
+            "response_format": "timeseries",
+            "queries": [
+              {
+                "query": "avg:ecs.fargate.mem.active_file{$container_name,$task_family,$cluster_name,$container_id} by {container_id}",
+                "data_source": "metrics",
+                "name": "query1"
+              }
+            ],
+            "style": { "palette": "dog_classic", "line_width": "thick" },
+            "display_type": "line"
+          }
+        ],
+        "yaxis": {
+          "include_zero": true,
+          "scale": "linear",
+          "min": "auto",
+          "max": "auto"
+        }
+      }
+    },
+    {
+      "id": 3254112262876084,
+      "layout": { "x": 103, "y": 8, "width": 36, "height": 9 },
+      "definition": {
+        "title": "Running console_task[$cluster_name ]",
+        "title_size": "20",
+        "title_align": "left",
+        "type": "query_value",
+        "requests": [
+          {
+            "formulas": [{ "formula": "count_not_null(query1)" }],
+            "conditional_formats": [
+              { "comparator": ">", "palette": "white_on_green", "value": 0 }
+            ],
+            "response_format": "scalar",
+            "queries": [
+              {
+                "query": "avg:ecs.fargate.mem.rss{$task_family,$cluster_name,$container_name} by {task_arn}",
+                "data_source": "metrics",
+                "name": "query1",
+                "aggregator": "avg"
+              }
+            ]
+          }
+        ],
+        "autoscale": true,
+        "precision": 2,
+        "timeseries_background": { "type": "area" }
+      }
+    },
+    {
+      "id": 1311359920198254,
+      "layout": { "x": 142, "y": 1, "width": 58, "height": 5 },
+      "definition": {
+        "type": "note",
+        "content": "IO",
+        "background_color": "purple",
+        "font_size": "36",
+        "text_align": "center",
+        "vertical_align": "center",
+        "show_tick": false,
+        "tick_pos": "50%",
+        "tick_edge": "left",
+        "has_padding": true
+      }
+    }
+  ],
+  "template_variables": [
+    {
+      "name": "cluster_name",
+      "default": "*",
+      "prefix": "cluster_name",
+      "available_values": [
+        "demo-int-dev",
+        "demo-staging-dev",
+        "demo-testing-dev"
+      ]
+    },
+    {
+      "name": "task_family",
+      "default": "*",
+      "prefix": "task_family",
+      "available_values": [
+        "demo-int-dev-console-task",
+        "demo-staging-dev-console-task",
+        "demo-testing-dev-console-task"
+      ]
+    },
+    {
+      "name": "container_name",
+      "default": "console",
+      "prefix": "container_name",
+      "available_values": ["console"]
+    },
+    {
+      "name": "container_id",
+      "default": "*",
+      "prefix": "container_id",
+      "available_values": []
+    }
+  ],
+  "layout_type": "free",
+  "is_read_only": false,
+  "notify_list": [],
+  "template_variable_presets": [
+    {
+      "name": "int console tasks",
+      "template_variables": [
+        { "name": "cluster_name", "value": "demo-int-dev" },
+        { "name": "task_family", "value": "demo-int-dev-console-task" }
+      ]
+    },
+    {
+      "name": "staging console tasks",
+      "template_variables": [
+        { "name": "cluster_name", "value": "demo-staging-dev" },
+        {
+          "name": "task_family",
+          "value": "demo-staging-dev-console-task"
+        }
+      ]
+    },
+    {
+      "name": "test",
+      "template_variables": [
+        { "name": "cluster_name", "value": "demo-staging-dev" },
+        {
+          "name": "task_family",
+          "value": "demo-staging-dev-console-task"
+        }
+      ]
+    },
+    {
+      "name": "testing console tasks",
+      "template_variables": [
+        { "name": "cluster_name", "value": "demo-testing-dev" },
+        {
+          "name": "task_family",
+          "value": "demo-testing-dev-console-task"
+        }
+      ]
+    }
+  ],
+  "id": "xzj-3w6-56w"
+}
